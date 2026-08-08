@@ -95,10 +95,16 @@ Dialogue-heavy fiction:
 CORE + FICTION + DIALOGUE
 
 A technical executive summary:
-CORE + PLAIN + EXECUTIVE
+CORE + PLAIN + TECHNICAL + EXECUTIVE
+
+A technical recommendation for a decision-maker:
+CORE + PLAIN + TECHNICAL + EXECUTIVE
+
+A technical incident report:
+CORE + PLAIN + TECHNICAL + REPORTING
 
 A technical research report for leadership:
-CORE + PLAIN + EXECUTIVE + RESEARCH
+CORE + PLAIN + TECHNICAL + EXECUTIVE + RESEARCH
 
 Add another protocol only when it provides a necessary rule.
 
@@ -180,6 +186,8 @@ COMPATIBLE WITH:
 
 CORE
 PLAIN
+EXECUTIVE
+REPORTING
 RESEARCH
 
 RULES:
@@ -217,6 +225,7 @@ COMPATIBLE WITH:
 
 CORE
 PLAIN
+TECHNICAL
 REPORTING
 RESEARCH
 
@@ -254,7 +263,12 @@ COMPATIBLE WITH:
 
 CORE
 PLAIN
+TECHNICAL
 EXECUTIVE
+
+DO NOT AUTOMATICALLY COMBINE WITH:
+
+RESEARCH
 
 RULES:
 
@@ -290,6 +304,10 @@ CORE
 PLAIN
 TECHNICAL
 EXECUTIVE
+
+DO NOT AUTOMATICALLY COMBINE WITH:
+
+REPORTING
 
 RULES:
 
@@ -446,6 +464,55 @@ PLAIN controls comprehension.
 TECHNICAL controls terminology and procedural precision.
 
 RESEARCH controls evidence and inference.
+
+Example:
+
+CORE + PLAIN + TECHNICAL + EXECUTIVE
+
+CORE controls general efficiency.
+
+PLAIN controls comprehension.
+
+TECHNICAL controls terminology and procedural precision.
+
+EXECUTIVE controls decision framing and content selection.
+
+TECHNICAL and EXECUTIVE appear to conflict, because EXECUTIVE removes
+implementation detail and TECHNICAL adds procedural precision. They govern
+different concerns. EXECUTIVE decides which details the reader needs.
+TECHNICAL decides how those details are worded. Apply the TECHNICAL
+procedural rules only to procedure that EXECUTIVE keeps.
+
+Example:
+
+CORE + PLAIN + TECHNICAL + REPORTING
+
+CORE controls general efficiency.
+
+PLAIN controls comprehension.
+
+TECHNICAL controls terminology and procedural precision.
+
+REPORTING controls evidence, attribution, neutrality, and uncertainty.
+
+TECHNICAL and REPORTING appear to conflict, because TECHNICAL removes
+unnecessary modifiers and REPORTING keeps the words that mark a source, an
+allegation, or an uncertainty. They govern different concerns. REPORTING
+decides which qualifications carry evidential weight. TECHNICAL removes only
+the modifiers that carry no evidential and no measured meaning. Words such as
+reported, alleged, and approximately are necessary when they state what the
+evidence supports.
+
+The TECHNICAL rules for explicit subjects and unambiguous pronouns support the
+REPORTING rule for attribution. A report that says "it failed" names neither
+the component nor the source.
+
+REPORTING and RESEARCH are not combined automatically. Several of their rules
+state the same requirement in different words. Use REPORTING when the subject
+is an event or a claim and attribution matters. Use RESEARCH when the subject
+is evidence and the risk is an overstated conclusion. Each protocol is
+sufficient for its own framing. If the user names both, apply each protocol to
+its own concern and do not state a shared requirement twice.
 
 Do not duplicate rules when protocols overlap.
 

@@ -1,0 +1,14 @@
+{
+  "name": "composable-language-protocols",
+  "owner": {
+    "name": "Steve Cain",
+    "url": "https://github.com/stevenscain"
+  },
+  "plugins": [
+    {
+      "name": "clp",
+      "source": "./",
+      "description": "Injects the CLP global rules into every prompt so prose output follows the specification."
+    }
+  ]
+}

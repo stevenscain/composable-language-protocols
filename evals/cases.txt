@@ -277,3 +277,106 @@ CHECK:
 - Removes or qualifies "always"
 - Preserves the sample-size limitation
 - Does not hide uncertainty
+
+
+========================================
+CASE 013
+========================================
+
+CATEGORY:
+Technical executive summary
+
+PROTOCOL:
+AUTO
+
+INPUT:
+Our API gateway drops requests when concurrent connections exceed 5,000. The fix requires replacing the connection pool library and re-running the load test suite. The replacement takes about two developer-weeks. We reached 4,200 concurrent connections during the last sale event. Write this up for the VP of Engineering.
+
+EXPECTED PROTOCOLS:
+CORE + PLAIN + TECHNICAL + EXECUTIVE
+
+CHECK:
+- Leads with the problem or the recommendation
+- Preserves the 5,000 connection limit and the 4,200 observed peak
+- States the two developer-week cost
+- Uses one term for one concept
+- Limits implementation detail to what affects the decision
+- No ambiguous pronouns
+- No em dash
+
+
+========================================
+CASE 014
+========================================
+
+CATEGORY:
+Technical incident report
+
+PROTOCOL:
+AUTO
+
+INPUT:
+The primary database node died and it took down everything. The failover obviously failed because the network team changed the firewall rules that morning. Replica lag hit about 45 seconds according to the Grafana dashboard. Write the incident report.
+
+EXPECTED PROTOCOLS:
+CORE + PLAIN + TECHNICAL + REPORTING
+
+CHECK:
+- Leads with the most important verified fact
+- Removes "obviously"
+- Does not state the firewall change as the cause
+- Attributes the replica lag measurement to the monitoring dashboard
+- Preserves the approximation on the 45 second measurement
+- Names the affected components instead of "it" and "everything"
+- Uses one term for one concept
+- No em dash
+
+
+========================================
+CASE 015
+========================================
+
+CATEGORY:
+Technical research report for leadership
+
+PROTOCOL:
+AUTO
+
+INPUT:
+We benchmarked our vector index against the current inverted index on 12,000 production queries. Median latency dropped from 180 ms to 65 ms. Recall at 10 fell from 0.94 to 0.89. The benchmark ran on one hardware configuration and used queries from a single month. Leadership needs to decide whether to migrate. Write it up.
+
+EXPECTED PROTOCOLS:
+CORE + PLAIN + TECHNICAL + EXECUTIVE + RESEARCH
+
+CHECK:
+- Leads with the recommendation or the decision
+- Preserves both measurements, including the recall reduction
+- States the single hardware configuration and single month limitations
+- Does not generalize beyond the benchmark
+- Uses one term for each index type
+- States the next action
+- No em dash
+
+
+========================================
+CASE 016
+========================================
+
+CATEGORY:
+Protocol exclusion
+
+PROTOCOL:
+AUTO
+
+INPUT:
+A university press office announced that its new battery chemistry lasts 40 percent longer than lithium ion. The study has not been peer reviewed. Write this up for a technology newsletter.
+
+EXPECTED PROTOCOLS:
+CORE + PLAIN + REPORTING
+
+CHECK:
+- Does not add RESEARCH, because REPORTING and RESEARCH are not combined automatically
+- Attributes the 40 percent claim to the university press office
+- States that the study has not been peer reviewed
+- Does not present the claim as a verified result
+- No em dash

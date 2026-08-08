@@ -11,7 +11,10 @@ Created by Steve Cain.
 | --- | --- |
 | `CLP.txt` | The specification. Priority order, global rules, protocol selection, and the nine protocols. |
 | `AGENTS.md` | Instructions that tell a coding agent to read `CLP.txt` before it works on prose. |
-| `evals/cases.txt` | Twelve evaluation cases that test protocol selection, composition, global constraints, and rule conflicts. |
+| `evals/cases.txt` | Sixteen evaluation cases that test protocol selection, composition, global constraints, and rule conflicts. |
+| `evals/check-compatibility.js` | Structural checks for `CLP.txt`. Verifies that compatibility declarations are reciprocal and that every protocol set in the selection map is legal. |
+| `.claude-plugin/` | Plugin and marketplace manifests for the Claude Code plugin. |
+| `hooks/clp-context.js` | The hook that injects the global rules into every turn. |
 
 ## The protocols
 
@@ -45,6 +48,29 @@ selection map.
 To apply CLP across a repository, place `CLP.txt` and `AGENTS.md` at the
 repository root. Agents that read `AGENTS.md` will load the specification
 before they write, rewrite, summarize, or review prose.
+
+## Claude Code plugin
+
+`AGENTS.md` loads once at the start of a session. As a conversation grows, that
+instruction sits further from the current turn and the model can stop applying
+it. The plugin solves this by injecting the global rules on every prompt.
+
+```
+/plugin marketplace add stevenscain/composable-language-protocols
+/plugin install clp@composable-language-protocols
+```
+
+The hook reads the global rules from `CLP.txt` at run time, so the injected
+text cannot drift from the specification. It also tells the model whether you
+named protocols, for example `CLP: TECHNICAL + RESEARCH`, or whether it should
+use automatic selection.
+
+To turn the hook off, send `clp off`. To turn it on again, send `clp on`. The
+setting is stored in your Claude configuration directory and persists across
+sessions.
+
+Run one writing-style hook at a time. Two plugins that both control style will
+give the model conflicting instructions.
 
 ## Design rules
 
