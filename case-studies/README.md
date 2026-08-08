@@ -3,7 +3,11 @@
 Short write-ups of what happened when CLP was applied to real work, and what
 the specification got wrong.
 
-Entries are one of two kinds, and each entry says which it is at the top.
+Entries are one of three kinds, and each entry says which it is at the top.
+
+An **introduction** says what the project is, why it exists, and who decided.
+There is one, numbered 000 because it is the entry point rather than the
+newest entry.
 
 A **record** documents one episode. It states what was attempted, what failed,
 what changed in the specification as a result, and the commits that carry the
@@ -20,6 +24,7 @@ marked and is ready to use without edits.
 
 | Entry | Kind | Subject |
 | --- | --- | --- |
+| [000](000-start-here.md) | Introduction | What CLP is, why it exists, and why the judgments in it had to come from a person. Includes the post text. |
 | [001](001-enforcing-the-spec.md) | Record | Enforcing CLP on the repository that defines it exposed two composition gaps and one unmarked exclusion. Includes the post text. |
 | [002](002-enforcing-the-spec-video.md) | Record | Video companion for case 001. Beat sheet, transcript, caption file, post copy, and distribution notes. |
 | [003](003-the-signature-is-a-defect-list.md) | Argument | Readers who reject generated prose are reporting a quality problem, not an origin problem. The signature decomposes into nine named defects. Includes the post text. |
