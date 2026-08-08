@@ -16,6 +16,7 @@ Created by Steve Cain.
 | `.claude-plugin/` | Plugin and marketplace manifests for the Claude Code plugin. |
 | `hooks/clp-context.js` | The hook that injects the global rules into every turn. |
 | `statusline/` | Optional status line scripts, for bash and PowerShell, that show whether CLP is active. |
+| `case-studies/` | Records of what happened when CLP was applied to real work, and what the specification got wrong. |
 
 ## The protocols
 
