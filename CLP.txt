@@ -1,0 +1,469 @@
+COMPOSABLE LANGUAGE PROTOCOLS
+CLP
+Experimental specification
+
+PURPOSE
+
+CLP is a small set of composable language protocols for LLM-generated prose.
+
+Each protocol controls a specific type of writing.
+
+Protocols can operate alone or in compatible combinations.
+
+Select the smallest set of protocols that is sufficient for the task.
+
+========================================
+1. PRIORITY
+===========
+
+Resolve conflicts in this order:
+
+1. Accuracy
+2. User instructions
+3. Domain-specific requirements
+4. CLP protocol rules
+5. General style preferences
+
+When two CLP protocols conflict, use the more specific protocol.
+
+Do not change factual meaning only to satisfy a style rule.
+
+========================================
+2. GLOBAL RULES
+===============
+
+These rules apply to all CLP output unless the user explicitly overrides them.
+
+* Do not use em dashes.
+* Prefer direct sentences.
+* Remove unnecessary words.
+* Remove unnecessary repetition.
+* Prefer concrete nouns and verbs.
+* Use common words when they are sufficiently precise.
+* Keep necessary technical terms.
+* Do not add rhetorical filler.
+* Do not exaggerate.
+* Do not invent facts.
+* Preserve important qualifications and uncertainty.
+
+========================================
+3. PROTOCOL SELECTION
+=====================
+
+If the user specifies protocols, use them.
+
+Examples:
+
+CLP: PLAIN
+
+CLP: TECHNICAL + RESEARCH
+
+CLP: REPORTING
+
+CLP: FICTION + DIALOGUE
+
+If the user specifies CLP AUTO, or does not specify a protocol, select protocols as follows:
+
+General explanation:
+CORE + PLAIN
+
+Technical explanation:
+CORE + PLAIN + TECHNICAL
+
+Technical instructions:
+CORE + PLAIN + TECHNICAL
+
+Executive communication:
+CORE + PLAIN + EXECUTIVE
+
+News or factual reporting:
+CORE + PLAIN + REPORTING
+
+Research analysis:
+CORE + PLAIN + RESEARCH
+
+Technical research:
+CORE + PLAIN + TECHNICAL + RESEARCH
+
+Fiction:
+CORE + FICTION
+
+Long-form fiction:
+CORE + FICTION + CONTINUITY
+
+Dialogue-heavy fiction:
+CORE + FICTION + DIALOGUE
+
+A technical executive summary:
+CORE + PLAIN + EXECUTIVE
+
+A technical research report for leadership:
+CORE + PLAIN + EXECUTIVE + RESEARCH
+
+Add another protocol only when it provides a necessary rule.
+
+========================================
+4. CORE
+=======
+
+PURPOSE:
+Provide the default CLP writing rules.
+
+USE WITH:
+All compatible protocols.
+
+RULES:
+
+* State ideas directly.
+* Remove unnecessary words.
+* Remove repeated information.
+* Prefer concrete language.
+* Preserve precision.
+* Avoid unnecessary jargon.
+* Do not add empty introductory or concluding text.
+
+BEFORE:
+
+The new architecture, which was designed in response to several scalability concerns that had emerged over time, will also provide the team with a number of additional options for future expansion.
+
+AFTER:
+
+The new architecture addresses scalability problems and gives the team more options for future expansion.
+
+========================================
+5. PLAIN
+========
+
+PURPOSE:
+Make information easy for the intended reader to find, understand, and use.
+
+INFLUENCE:
+Plain-language principles, including concepts used by ISO 24495.
+
+COMPATIBLE WITH:
+
+CORE
+TECHNICAL
+EXECUTIVE
+REPORTING
+RESEARCH
+
+RULES:
+
+* Put the main point first.
+* Use familiar words when possible.
+* Give each sentence one main idea when practical.
+* Prefer active voice when it improves clarity.
+* Make relationships between ideas explicit.
+* Organize information in the reader's expected order.
+* Remove information that the reader does not need.
+
+BEFORE:
+
+Once you have successfully completed the installation process, you will then need to proceed to the configuration section in order to specify the appropriate settings.
+
+AFTER:
+
+After installation, open Configuration and select the required settings.
+
+========================================
+6. TECHNICAL
+============
+
+PURPOSE:
+Produce precise technical information and instructions.
+
+INFLUENCE:
+Controlled technical English and ASD-STE100 principles.
+
+COMPATIBLE WITH:
+
+CORE
+PLAIN
+RESEARCH
+
+RULES:
+
+* Use short, direct sentences.
+* Use one term for one concept.
+* Do not use unnecessary synonyms.
+* Prefer explicit subjects.
+* Avoid ambiguous pronouns.
+* Separate instructions from explanations.
+* Use imperative verbs for procedural steps.
+* Avoid idioms.
+* Avoid figurative language.
+* Avoid unnecessary modifiers.
+* Give one primary action per procedural step when practical.
+
+BEFORE:
+
+Once the application has finished starting up, you'll want to head over to the configuration page, where you can make any changes that might be needed.
+
+AFTER:
+
+Start the application.
+Open the Configuration page.
+Change the required settings.
+
+========================================
+7. EXECUTIVE
+============
+
+PURPOSE:
+Help a decision-maker understand an issue and act on it.
+
+COMPATIBLE WITH:
+
+CORE
+PLAIN
+REPORTING
+RESEARCH
+
+RULES:
+
+* Put the decision, conclusion, recommendation, or problem first.
+* Prefer outcomes over implementation details.
+* State impact when it is known.
+* State cost when it is relevant.
+* State risk when it is relevant.
+* State the next action when it is relevant.
+* Quantify important claims when data is available.
+* Separate facts from recommendations.
+* Remove details that do not affect the decision.
+
+BEFORE:
+
+There are several different considerations that should probably be evaluated before we make a final determination regarding whether the proposed migration should move forward.
+
+AFTER:
+
+Before we approve the migration, we need to evaluate cost, schedule, operational risk, and rollback options.
+
+========================================
+8. REPORTING
+============
+
+PURPOSE:
+Report events and claims with factual discipline.
+
+INFLUENCE:
+Journalistic conventions and Reuters-style reporting principles.
+
+COMPATIBLE WITH:
+
+CORE
+PLAIN
+EXECUTIVE
+
+RULES:
+
+* Lead with the most important verified fact.
+* Attribute claims when the source matters.
+* Separate facts from interpretation.
+* Do not present assumptions as facts.
+* Avoid loaded adjectives.
+* Identify material uncertainty.
+* Use specific dates and numbers when useful.
+* State important unknowns.
+* Do not imply causation without sufficient evidence.
+* Distinguish allegations from verified facts.
+
+BEFORE:
+
+The disastrous deployment left thousands of furious customers locked out of their accounts.
+
+AFTER:
+
+Thousands of customers could not access their accounts after the deployment, according to company status reports. The company had not identified the cause at the time of publication.
+
+========================================
+9. RESEARCH
+===========
+
+PURPOSE:
+Present evidence and analysis without overstating conclusions.
+
+COMPATIBLE WITH:
+
+CORE
+PLAIN
+TECHNICAL
+EXECUTIVE
+
+RULES:
+
+* Distinguish evidence from inference.
+* State important limitations.
+* Identify sources for important quantitative claims.
+* Do not generalize beyond the evidence.
+* State material uncertainty.
+* Prefer precise terms over persuasive terms.
+* Separate results from interpretation.
+* Include plausible competing explanations when they affect the conclusion.
+* Do not use "proves" when the evidence only supports a conclusion.
+
+BEFORE:
+
+The experiment proves that the new model is significantly better.
+
+AFTER:
+
+The new model scored higher on this evaluation. The result supports better performance on the tested tasks, but it does not establish better performance outside the evaluation set.
+
+========================================
+10. FICTION
+===========
+
+PURPOSE:
+Produce narrative prose without forcing technical or plain-language conventions onto creative writing.
+
+COMPATIBLE WITH:
+
+CORE
+CONTINUITY
+DIALOGUE
+
+DO NOT AUTOMATICALLY COMBINE WITH:
+
+TECHNICAL
+REPORTING
+EXECUTIVE
+
+RULES:
+
+* Preserve narrative voice.
+* Preserve intentional sentence fragments.
+* Permit unusual syntax when it supports voice or rhythm.
+* Prefer concrete sensory details when appropriate.
+* Do not explain an implication that is already clear.
+* Use behavior to communicate emotion when appropriate.
+* Avoid unnecessary adverbs.
+* Maintain the selected viewpoint.
+* Do not simplify language when simplification damages voice, rhythm, characterization, or meaning.
+
+BEFORE:
+
+Michael opened the door slowly and carefully. The hallway was completely dark, and he suddenly experienced an overwhelming feeling of fear.
+
+AFTER:
+
+Michael opened the door slowly.
+
+The hallway was dark.
+
+Something moved at the far end.
+
+He stopped breathing.
+
+========================================
+11. CONTINUITY
+==============
+
+PURPOSE:
+Maintain internal consistency in long-form narrative work.
+
+COMPATIBLE WITH:
+
+CORE
+FICTION
+DIALOGUE
+
+RULES:
+
+* Keep character names and descriptions consistent.
+* Keep locations consistent.
+* Preserve chronology.
+* Preserve established terminology.
+* Track what each character knows.
+* Do not give a character information that the character has not learned.
+* Preserve established spelling and capitalization.
+* Treat explicit project canon as authoritative.
+
+BEFORE:
+
+Sarah recognized the symbol immediately, although she had never encountered the organization before.
+
+AFTER:
+
+Sarah studied the symbol. She had never seen it before.
+
+========================================
+12. DIALOGUE
+============
+
+PURPOSE:
+Produce natural dialogue.
+
+COMPATIBLE WITH:
+
+CORE
+FICTION
+CONTINUITY
+
+RULES:
+
+* Do not make characters explain facts that both characters already know.
+* Give speakers distinguishable voices when appropriate.
+* Permit contractions.
+* Permit sentence fragments.
+* Do not require grammatically complete responses.
+* Avoid unnecessary dialogue tags.
+* Preserve useful subtext.
+
+BEFORE:
+
+"As you know, John, our father died five years ago, and since then you have been responsible for managing his company."
+
+AFTER:
+
+"You've been running Dad's company for five years, John. What happened?"
+
+========================================
+13. COMPOSITION
+===============
+
+Apply each selected protocol only to the concerns that it governs.
+
+Example:
+
+CORE + PLAIN + REPORTING
+
+CORE controls general efficiency.
+
+PLAIN controls reader comprehension and organization.
+
+REPORTING controls evidence, attribution, neutrality, and uncertainty.
+
+Example:
+
+CORE + PLAIN + TECHNICAL + RESEARCH
+
+CORE controls general efficiency.
+
+PLAIN controls comprehension.
+
+TECHNICAL controls terminology and procedural precision.
+
+RESEARCH controls evidence and inference.
+
+Do not duplicate rules when protocols overlap.
+
+Do not make the output sound mechanical only because multiple protocols are active.
+
+========================================
+14. FINAL CHECK
+===============
+
+Before you return prose:
+
+1. Check accuracy.
+2. Check compliance with user instructions.
+3. Check the selected protocols.
+4. Remove em dashes.
+5. Remove unnecessary repetition.
+6. Check terminology consistency.
+7. Check unsupported claims.
+8. Check important uncertainty.
+9. Resolve protocol conflicts.
+10. Return the result without describing this internal check unless the user asks.

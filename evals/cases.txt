@@ -1,0 +1,279 @@
+COMPOSABLE LANGUAGE PROTOCOLS
+EVALUATION CASES
+Version 0.1
+
+
+========================================
+CASE 001
+========================================
+
+CATEGORY:
+General explanation
+
+PROTOCOL:
+AUTO
+
+INPUT:
+Explain why a database index can make a query faster.
+
+EXPECTED PROTOCOLS:
+CORE + PLAIN
+
+CHECK:
+- No em dash
+- Main point first
+- Direct sentences
+- No unnecessary jargon
+- Accurate explanation
+
+
+========================================
+CASE 002
+========================================
+
+CATEGORY:
+Technical instructions
+
+PROTOCOL:
+AUTO
+
+INPUT:
+Explain how to restart a Windows service named OrderProcessor and verify that it started successfully.
+
+EXPECTED PROTOCOLS:
+CORE + PLAIN + TECHNICAL
+
+CHECK:
+- One primary action per step
+- Imperative instructions
+- Consistent terminology
+- No ambiguous pronouns
+- No em dash
+
+
+========================================
+CASE 003
+========================================
+
+CATEGORY:
+Technical rewrite
+
+PROTOCOL:
+TECHNICAL
+
+INPUT:
+Once you've gotten the server up and running, you'll probably want to go ahead and check the logs to make sure that everything looks good before proceeding with the deployment.
+
+EXPECTED:
+Start the server.
+Check the logs for errors.
+If there are no errors, continue the deployment.
+
+CHECK:
+- Direct instructions
+- No filler
+- No idioms
+- No unnecessary synonyms
+
+
+========================================
+CASE 004
+========================================
+
+CATEGORY:
+Executive communication
+
+PROTOCOL:
+AUTO
+
+INPUT:
+We have discovered that the current database version will stop receiving security updates in six months. The upgrade requires approximately three developer-weeks. Testing will require another week. If we do not upgrade, we will operate an unsupported database.
+
+EXPECTED PROTOCOLS:
+CORE + PLAIN + EXECUTIVE
+
+CHECK:
+- Risk appears early
+- Schedule is clear
+- Decision-relevant information is retained
+- Implementation detail is limited
+
+
+========================================
+CASE 005
+========================================
+
+CATEGORY:
+Reporting
+
+PROTOCOL:
+AUTO
+
+INPUT:
+The disastrous software release caused thousands of angry users to lose access to the service. The engineering team clearly failed to test the system properly.
+
+EXPECTED PROTOCOLS:
+CORE + PLAIN + REPORTING
+
+CHECK:
+- Removes loaded language
+- Does not assume cause without evidence
+- Separates fact from interpretation
+- Identifies unsupported claims
+
+
+========================================
+CASE 006
+========================================
+
+CATEGORY:
+Research
+
+PROTOCOL:
+AUTO
+
+INPUT:
+Model A scored 91 percent on our 200-question test. Model B scored 86 percent. This proves that Model A is the better model.
+
+EXPECTED PROTOCOLS:
+CORE + PLAIN + RESEARCH
+
+CHECK:
+- Does not say the test proves universal superiority
+- Preserves the measurements
+- States the evaluation limitation
+- Separates evidence from inference
+
+
+========================================
+CASE 007
+========================================
+
+CATEGORY:
+Technical research
+
+PROTOCOL:
+AUTO
+
+INPUT:
+We tested three retrieval algorithms on 50 repositories. Algorithm C had the lowest median retrieval time. Explain what we can conclude.
+
+EXPECTED PROTOCOLS:
+CORE + PLAIN + TECHNICAL + RESEARCH
+
+CHECK:
+- Uses precise terminology
+- States what the test supports
+- Does not generalize beyond the experiment
+- Identifies important limitations
+
+
+========================================
+CASE 008
+========================================
+
+CATEGORY:
+Fiction
+
+PROTOCOL:
+AUTO
+
+INPUT:
+Rewrite this as tense fiction:
+
+David slowly opened the basement door and felt extremely frightened because he could hear an unknown noise coming from somewhere downstairs.
+
+EXPECTED PROTOCOLS:
+CORE + FICTION
+
+CHECK:
+- Preserves narrative freedom
+- Does not force technical sentence structure
+- Uses concrete action or sensory information
+- Avoids unnecessary explanation
+
+
+========================================
+CASE 009
+========================================
+
+CATEGORY:
+Dialogue
+
+PROTOCOL:
+AUTO
+
+INPUT:
+Rewrite this dialogue naturally:
+
+"As you already know, Susan, we have worked together at this company for eleven years, and the company announced yesterday that our department will close."
+
+EXPECTED PROTOCOLS:
+CORE + FICTION + DIALOGUE
+
+CHECK:
+- Removes "as you know" exposition
+- Allows natural fragments or contractions
+- Preserves the important information
+
+
+========================================
+CASE 010
+========================================
+
+CATEGORY:
+Protocol composition
+
+PROTOCOL:
+CORE + PLAIN + EXECUTIVE + RESEARCH
+
+INPUT:
+Our pilot reduced average processing time from 14 minutes to 9 minutes across 120 cases. However, the pilot used only one customer and ran for two weeks. Write a recommendation for leadership.
+
+CHECK:
+- Leads with the result or recommendation
+- Includes the measured improvement
+- Includes limitations
+- Does not overstate the evidence
+- Gives a useful decision or next action
+
+
+========================================
+CASE 011
+========================================
+
+CATEGORY:
+Global constraint
+
+PROTOCOL:
+AUTO
+
+INPUT:
+Rewrite this sentence clearly:
+
+The migration is possible — but it carries several risks — and those risks should be reviewed before approval.
+
+CHECK:
+- Contains zero em dashes
+- Preserves meaning
+- Does not replace em dashes with awkward punctuation
+
+
+========================================
+CASE 012
+========================================
+
+CATEGORY:
+Rule conflict
+
+PROTOCOL:
+CORE + PLAIN + RESEARCH
+
+INPUT:
+The data strongly suggests that treatment X always works, although the study included only eight participants.
+
+CHECK:
+- Accuracy has priority over style
+- Removes or qualifies "always"
+- Preserves the sample-size limitation
+- Does not hide uncertainty
