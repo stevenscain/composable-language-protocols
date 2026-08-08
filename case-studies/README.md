@@ -28,3 +28,4 @@ marked and is ready to use without edits.
 | [001](001-enforcing-the-spec.md) | Record | Enforcing CLP on the repository that defines it exposed two composition gaps and one unmarked exclusion. Includes the post text. |
 | [002](002-enforcing-the-spec-video.md) | Record | Video companion for case 001. Beat sheet, transcript, caption file, post copy, and distribution notes. |
 | [003](003-the-signature-is-a-defect-list.md) | Argument | Readers who reject generated prose are reporting a quality problem, not an origin problem. The signature decomposes into nine named defects. Includes the post text. |
+| [004](004-how-the-repository-is-built.md) | Record | How the repository is organised for two agents, why the specification is plain text, how the hook and checker work, and what a model can establish about its own composition. |
