@@ -3,7 +3,7 @@
 Date: 2026-08-08
 Covers the same episode as [001](001-enforcing-the-spec.md).
 
-A 62 second screen recording. The terminal does the work and the voice
+An 85 second screen recording. The terminal does the work and the voice
 narrates. There is no talking head, because the two frames that carry the
 argument are the checker printing `FAIL` and then printing `PASS`.
 
@@ -26,45 +26,51 @@ over the three second minimum and far under any ceiling.
 
 | Time | On screen | Purpose |
 | --- | --- | --- |
-| 0:00 | `CLP.txt` open at section 2, cursor on "Do not use em dashes." | State the rule in the first frame |
-| 0:04 | Chat response scrolling, em dashes highlighted in red | Show the violation |
-| 0:08 | `AGENTS.md`, the line "Read CLP.txt before you..." | Show the instruction that was skipped |
-| 0:14 | Terminal scrollback showing a README read and a grep, no spec read | Show what the model did instead |
-| 0:19 | Static title card: "A pointer to rules is not rules." | The one line to remember |
-| 0:28 | `hooks/clp-context.js`, the `additionalContext` block | Show the fix |
-| 0:39 | `CLP.txt` diff, `TECHNICAL` gaining `EXECUTIVE` and `REPORTING` | Show the gaps |
-| 0:45 | `node evals/check-compatibility.js` on the pre-fix spec, printing `FAIL` | Red |
-| 0:52 | The same command on the fixed spec, printing `PASS` | Green |
-| 0:56 | Repository URL on a plain card | Call to action |
+| 0:00 | `CLP.txt` scrolling past its section headers, fast enough to read the shape | Show a specification, not a style tip |
+| 0:04 | The chat response that broke it, scrolling | Show the violation |
+| 0:09 | The same response with the em dashes highlighted in red | Name the specific rule |
+| 0:13 | The nine section headers, then the section 3 selection map with task types resolving to protocol sets | Show the axes and that they combine |
+| 0:27 | `AGENTS.md`, the line "Read CLP.txt before you..." | Show the instruction that was skipped |
+| 0:31 | Terminal scrollback showing a README read and a grep, no spec read | Show what the model did instead |
+| 0:36 | Static title card: "A pointer to rules is not rules." | The one line to remember |
+| 0:45 | `hooks/clp-context.js`, the `additionalContext` block | Show the fix |
+| 0:51 | `CLP.txt` diff, `TECHNICAL` gaining `REPORTING` in its compatibility block | Show the gap |
+| 1:13 | `node evals/check-compatibility.js` on the pre-fix spec, printing `FAIL` | Red |
+| 1:17 | The same command on the fixed spec, printing `PASS` | Green |
+| 1:20 | Repository URL on a plain card | Call to action |
 
 The red and green frames are the payoff. Hold each for at least three seconds
 so the text is readable at feed scroll speed.
 
 ## Transcript
 
-Spoken narration, 144 words, which runs about 62 seconds at a normal pace.
+Spoken narration, 157 words over 85.5 seconds, which is a deliberate 110 words
+per minute. The slow pace is intentional, because the red and green frames
+need to be held long enough to read at feed scroll speed.
 
-> I wrote a spec that bans em dashes in AI writing. Then I asked Claude to
-> promote it, and its first answer was full of them.
+> I wrote a specification for how AI should write prose. Then I asked Claude
+> to promote it, and its first answer broke the spec. About a dozen em dashes,
+> which the spec bans outright.
 >
-> Here is why. My repo has an AGENTS.md that says: read the spec before you
-> write prose. The model read the README instead. It grepped for examples to
-> quote back at me. It never opened the spec file.
+> Nine protocols, each governing one concern. Terminology. Decision framing.
+> Attribution. Evidence. You select by task and combine them.
 >
-> The instruction was a pointer. The model never dereferenced it. A pointer to
-> rules is not rules.
+> My AGENTS.md says: read the spec before you write. The model read the README
+> instead and never opened the file. The instruction was a pointer. It never
+> dereferenced it.
 >
-> So I replaced it with a hook that injects the actual rules beside every
-> message, read out of the spec file at run time.
+> A pointer to rules is not rules. So I replaced it with a hook that injects
+> the actual rules beside every message.
 >
-> Then I applied the spec properly, and it broke. Two protocol pairs that
-> should have composed could not.
+> Then I applied the spec properly, and it broke. Technical could not compose
+> with Reporting. A technical incident report had no legal protocol set, and
+> that combination is the point of the design.
 >
 > So I wrote a checker.
 >
 > Red. Green.
 >
-> Writing the spec was the easy part. Enforcing it is what found the bugs.
+> Writing the spec was the easy part. Composing it is where it got tested.
 
 ## Captions
 
@@ -73,63 +79,93 @@ Save as `clp-video.srt` and upload with the video.
 ```srt
 1
 00:00:00,000 --> 00:00:04,500
-I wrote a spec that bans em dashes
-in AI writing.
+I wrote a specification for how
+AI should write prose.
 
 2
-00:00:04,500 --> 00:00:08,500
-Then I asked Claude to promote it.
-Its first answer was full of them.
+00:00:04,500 --> 00:00:09,500
+Then I asked Claude to promote it,
+and its first answer broke the spec.
 
 3
-00:00:08,500 --> 00:00:14,000
-My repo has an AGENTS.md that says:
-read the spec before you write prose.
+00:00:09,500 --> 00:00:13,500
+About a dozen em dashes,
+which the spec bans outright.
 
 4
-00:00:14,000 --> 00:00:19,000
-The model read the README instead.
-It never opened the spec file.
+00:00:13,500 --> 00:00:18,000
+Nine protocols,
+each governing one concern.
 
 5
-00:00:19,000 --> 00:00:24,000
-The instruction was a pointer.
-The model never dereferenced it.
+00:00:18,000 --> 00:00:23,000
+Terminology. Decision framing.
+Attribution. Evidence.
 
 6
-00:00:24,000 --> 00:00:28,000
-A pointer to rules is not rules.
+00:00:23,000 --> 00:00:27,000
+You select by task and combine them.
 
 7
-00:00:28,000 --> 00:00:35,000
-So I replaced it with a hook that injects
-the actual rules beside every message,
+00:00:27,000 --> 00:00:31,500
+My AGENTS.md says: read the spec
+before you write.
 
 8
-00:00:35,000 --> 00:00:39,000
-read out of the spec file at run time.
+00:00:31,500 --> 00:00:36,500
+The model read the README instead
+and never opened the file.
 
 9
-00:00:39,000 --> 00:00:45,000
-Then I applied the spec properly, and it broke.
-Two protocol pairs that should compose could not.
+00:00:36,500 --> 00:00:41,000
+The instruction was a pointer.
+It never dereferenced it.
 
 10
-00:00:45,000 --> 00:00:48,000
-So I wrote a checker.
+00:00:41,000 --> 00:00:45,000
+A pointer to rules is not rules.
 
 11
-00:00:48,000 --> 00:00:52,000
-Red.
+00:00:45,000 --> 00:00:51,000
+So I replaced it with a hook that injects
+the actual rules beside every message.
 
 12
-00:00:52,000 --> 00:00:56,000
-Green.
+00:00:51,000 --> 00:00:56,000
+Then I applied the spec properly,
+and it broke.
 
 13
-00:00:56,000 --> 00:01:02,000
+00:00:56,000 --> 00:01:00,500
+Technical could not compose
+with Reporting.
+
+14
+00:01:00,500 --> 00:01:06,500
+A technical incident report had
+no legal protocol set,
+
+15
+00:01:06,500 --> 00:01:10,500
+and that combination is
+the point of the design.
+
+16
+00:01:10,500 --> 00:01:13,500
+So I wrote a checker.
+
+17
+00:01:13,500 --> 00:01:17,000
+Red.
+
+18
+00:01:17,000 --> 00:01:20,500
+Green.
+
+19
+00:01:20,500 --> 00:01:25,500
 Writing the spec was the easy part.
-Enforcing it is what found the bugs.
+Composing it is where it got tested.
 ```
 
 ## Post copy for the video
@@ -138,17 +174,19 @@ The video carries the story, so this copy is short. The first two lines have
 to land before the feed truncates them.
 
 ```text
-I wrote a spec that bans em dashes in AI-generated prose.
+I wrote a specification for how AI should write prose.
 
-Then I asked Claude to help me promote it, and its first answer was full of them.
+Nine protocols, each governing one concern. TECHNICAL owns terminology and procedure. EXECUTIVE owns what a decision maker needs and what to cut. REPORTING owns attribution and neutrality. You select by task and combine them.
 
-The cause was not a weak rule. My AGENTS.md told the model to read the spec before writing. It read the README instead, grepped for examples, and never opened the file.
+Then I asked Claude to help me promote it, and its first answer broke the spec. About a dozen em dashes, which it bans outright.
 
-The instruction was a pointer. The model never dereferenced it.
+The rule was not the problem. My AGENTS.md told the model to read the spec first. It read the README instead and never opened the file. The instruction was a pointer and it never dereferenced it.
 
-So I replaced it with a UserPromptSubmit hook that injects the literal rules beside every message, read out of the spec at run time so the copy cannot drift.
+So I replaced it with a hook that injects the literal rules beside every message, read out of the spec at run time so the copy cannot drift.
 
-Then applying the spec properly exposed two protocol pairs that should have composed and could not. So I shipped a compatibility checker. 62 seconds, red to green.
+With the rules actually arriving, the spec broke. TECHNICAL could not compose with REPORTING, so a technical incident report had no legal protocol set. That combination is the point of the design.
+
+So I shipped a compatibility checker. 85 seconds, red to green.
 
 github.com/stevenscain/composable-language-protocols
 

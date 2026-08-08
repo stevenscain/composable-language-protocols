@@ -41,43 +41,50 @@ exclusion.
 
 ## Post text
 
-Ready to publish without edits. 2,199 characters, inside the 3,000 character
-LinkedIn limit, and it contains no em dashes.
+Ready to publish without edits. 2,744 characters, no em dashes, and a 53
+character opening line so the hook clears the feed truncation.
+
+The post spends its middle on what the nine protocols govern before it reports
+the bugs. That is deliberate. "TECHNICAL could not compose with REPORTING" is
+not a defect a reader can feel unless they already know those are two separate
+axes of prose control that a technical incident report needs at the same time.
+An earlier draft led with the enforcement mechanism and left the bugs
+unintelligible.
 
 ```text
-I wrote a spec that bans em dashes in AI-generated prose.
+I wrote a specification for how AI should write prose.
 
-Then I asked Claude to help me promote it. Its first answer used about a dozen of them, and closed by advising me to "post in the voice the spec produces."
+Nine protocols that compose, a priority order where accuracy outranks style, and sixteen evaluation cases.
 
-The reason it happened is worth more than the spec.
+Then I asked Claude to help me promote it. Its first answer broke the specification, and closed by advising me to "post in the voice the spec produces."
 
-The repo has an AGENTS.md that says: read CLP.txt before you write prose. The model read the README instead, grepped the spec for example snippets to quote back at me, and never opened the file. It had classified the repository as a subject to analyze, not as rules governing its own output.
+The rule it broke was the one I would have bet on it keeping. No em dashes. It used about a dozen.
 
-The instruction was a pointer. The model never dereferenced it.
+What the spec is matters here, because the failure only makes sense against it.
 
-That does not get fixed by a better prompt. A pointer to rules is not rules. So I replaced it with a UserPromptSubmit hook that injects the literal rules beside every message, and reads them out of CLP.txt at run time so the injected copy cannot drift from the source.
+Prose quality is not one dial. It is several independent concerns, and different tasks need different ones. PLAIN governs order and comprehension. TECHNICAL governs terminology and procedure. EXECUTIVE governs what a decision maker needs and what to cut. REPORTING governs attribution and neutrality. RESEARCH governs the distance between evidence and conclusion. Nine in total, each owning exactly one concern, selected by task and combined.
 
-Then it got interesting.
+A technical incident report needs TECHNICAL and REPORTING at once. Combining axes is the entire point of the design.
 
-Once the spec was actually being applied, three gaps surfaced in the spec itself:
+Now the failure. My AGENTS.md says: read CLP.txt before you write prose. The model read the README instead, grepped for examples to quote back at me, and never opened the file. The instruction was a pointer and it never dereferenced it. A pointer to rules is not rules, so I replaced it with a hook that injects the literal rules beside every message, read out of the spec at run time so the copy cannot drift.
 
-1. TECHNICAL could not compose with EXECUTIVE, so "a technical executive summary" had no legal protocol set.
+With the rules actually arriving, I applied the spec properly. It broke.
 
-2. TECHNICAL could not compose with REPORTING, so a technical incident report had none either.
+TECHNICAL could not compose with EXECUTIVE. A technical executive summary had no legal protocol set.
 
-3. REPORTING and RESEARCH excluded each other with no marker, so it read like a third omission. It was not. Those two already state six of the same requirements in different words, so I marked the exclusion deliberate and wrote down why.
+TECHNICAL could not compose with REPORTING. The technical incident report, the combination I just called the point of the design, was not legal either.
 
-I had published a specification for composable protocols in which two of the most common real combinations did not compose.
+REPORTING and RESEARCH excluded each other with no marker. That one turned out to be right, because those two already state six of the same requirements in different words, so I marked the exclusion deliberate and wrote down why.
+
+I had published a specification for composable protocols in which the most common real combinations did not compose.
 
 So I shipped a checker. It verifies that every compatibility declaration is reciprocal, that every protocol named in the selection map exists, and that no mapped set pairs two protocols marked non-composable. It exits 1.
 
-Nine protocols. Sixteen evaluation cases. A validator. An installable plugin.
-
-Writing the spec was the easy part. Enforcing it is what found the bugs.
+Writing the spec was the easy part. Composing it is where the design claims get tested, and that is where it failed.
 
 github.com/stevenscain/composable-language-protocols
 
-One thing I keep going back and forth on: there is no PERSUASIVE protocol, no SUPPORT, no LEGAL. Which would you add first?
+One thing I keep going back and forth on: there is no PERSUASIVE protocol, no SUPPORT, no LEGAL. Which axis would you add first?
 
 #SoftwareEngineering #AIEngineering #TechnicalWriting #DeveloperTools
 ```
