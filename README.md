@@ -15,6 +15,7 @@ Created by Steve Cain.
 | `evals/check-compatibility.js` | Structural checks for `CLP.txt`. Verifies that compatibility declarations are reciprocal and that every protocol set in the selection map is legal. |
 | `.claude-plugin/` | Plugin and marketplace manifests for the Claude Code plugin. |
 | `hooks/clp-context.js` | The hook that injects the global rules into every turn. |
+| `statusline/` | Optional status line scripts, for bash and PowerShell, that show whether CLP is active. |
 
 ## The protocols
 
@@ -71,6 +72,32 @@ sessions.
 
 Run one writing-style hook at a time. Two plugins that both control style will
 give the model conflicting instructions.
+
+### Status line badge
+
+The `statusline` directory holds two scripts that print `[CLP]` when the
+protocols are active and `[CLP:OFF]` after you send `clp off`. Both read the
+same flag file as the hook, so the badge follows the toggle. Use
+`clp-statusline.sh` on macOS and Linux and `clp-statusline.ps1` on Windows.
+
+```
+"statusLine": {
+  "type": "command",
+  "command": "bash /path/to/clp-statusline.sh"
+}
+```
+
+```
+"statusLine": {
+  "type": "command",
+  "command": "powershell -ExecutionPolicy Bypass -File \"C:\\path\\to\\clp-statusline.ps1\""
+}
+```
+
+Two things to know before you wire it up. A `statusLine` command replaces the
+whole status line, so the badge is all the row will show. And the plugin cache
+path contains the version number, so pointing at the installed copy breaks on
+the next plugin update. Point at a checkout or a copy you control instead.
 
 ## Design rules
 

@@ -10,10 +10,11 @@ A prose specification. The deliverable is the text in `CLP.txt`, and most
 changes are edits to plain-text specification files. There is no build, no
 test runner, and no lint step.
 
-Two Node scripts are the exception. `hooks/clp-context.js` packages the
-specification as a Claude Code plugin, and `evals/check-compatibility.js`
-checks the structure of `CLP.txt`. Neither has npm dependencies, so there is
-still nothing to install or compile.
+A few scripts are the exception. `hooks/clp-context.js` packages the
+specification as a Claude Code plugin, `evals/check-compatibility.js` checks
+the structure of `CLP.txt`, and the two scripts in `statusline` print a badge.
+None of them has dependencies, so there is still nothing to install or
+compile.
 
 ## Architecture
 
@@ -37,6 +38,13 @@ Three files that depend on each other in one direction:
   start with `*`. If you change that heading or the bullet format, update the
   parser. `.claude-plugin/plugin.json` and `.claude-plugin/marketplace.json`
   register the hook.
+- `statusline/clp-statusline.sh` and `statusline/clp-statusline.ps1` print a
+  badge showing whether CLP is active. They test whether the hook's
+  `.clp-inactive` flag file exists and never read its contents, so the flag
+  cannot inject terminal escape sequences. If you rename the flag file, update
+  both scripts and the hook together. These are wired through the `statusLine`
+  key in `settings.json`, not through the plugin manifest, so installing the
+  plugin does not enable them.
 - `evals/check-compatibility.js` checks the structure of `CLP.txt`. It parses
   the `COMPATIBLE WITH` and `DO NOT AUTOMATICALLY COMBINE WITH` blocks and the
   section 3 selection map, so it depends on the exact section header and block
