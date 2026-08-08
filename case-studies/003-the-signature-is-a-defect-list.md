@@ -140,3 +140,60 @@ before it ships. That is what the nine protocols are.
 
 The useful reframe is that there was never a new problem here. There was an
 old problem arriving at a volume that made it impossible to ignore.
+
+## Post text
+
+Ready to publish without edits. 2,856 characters and no em dashes. The first
+line is 118 characters, so the hook lands before the feed truncates it.
+
+One judgement call to be aware of. At 2,856 characters this sits near the
+3,000 limit, which leaves about two sentences of editing room and puts it at
+the long end for a feed post. The length is spent on two worked examples and
+on the paragraph that marks the argument's limits, and cutting either one
+weakens the piece. A shorter variant is possible by dropping the second
+example, at the cost of letting a reader dismiss the first as cherry-picked.
+
+```text
+People say they can tell when text was written by AI. They are usually right, and the reason is not the one they give.
+
+The complaint arrives as a claim about origin. Read it as a claim about quality and it becomes something you can test and fix.
+
+What readers detect is not a watermark. It is a short list of ordinary prose defects that travel together often enough to feel like a personality.
+
+I wrote a spec with nine writing protocols, each carrying a before and after pair. Read the nine "before" examples together and the signature stops being a mood. It becomes an inventory.
+
+Decision avoidance:
+
+"There are several different considerations that should probably be evaluated before we make a final determination regarding whether the proposed migration should move forward."
+
+That has the shape of analysis and contains none. It names no consideration and recommends nothing. The repair: "Before we approve the migration, we need to evaluate cost, schedule, operational risk, and rollback options."
+
+Deferred payload: "Once you have successfully completed the installation process, you will then need to proceed to the configuration section in order to specify the appropriate settings." Twenty five words. The repair is nine: "After installation, open Configuration and select the required settings."
+
+Not one of these is a marker of machine authorship. Every one is a failure human writers have produced for a century. They cluster in generated text because the objectives that shape it reward fluency, hedging and completeness. That is a signature of unrevised writing, not of origin.
+
+They share a cost structure, which is why the effect is tiring rather than merely wrong. Each defect makes the reader spend something and returns nothing. Inflation costs time. Deferred payload costs patience. Overclaim costs verification. Fatigue is the running total.
+
+Three of the nine are not style problems at all. Unearned intensity, overclaim and contradiction are accuracy failures. A reader burned by those learns to distrust the whole register that carries them. Part of what gets called a taste problem is a trust problem that has been misfiled.
+
+Where this stops: nine designed examples show the defects are separable. They measure nothing about real readers. And there is a competing explanation I cannot rule out, that knowing a text was generated makes you read it harshly whatever its quality. A blind comparison would settle it. Nobody has run one.
+
+Prose works when the reader stops seeing it. The goal is not text that hides where it came from. It is text with nothing in it that prompts the question.
+
+This post was written under those rules. If it reads like a machine wrote it, that is a bug report and I want it.
+
+github.com/stevenscain/composable-language-protocols
+
+#SoftwareEngineering #AIEngineering #TechnicalWriting #Communication
+```
+
+Notes on the cut. The blog post walks all nine defects. The post keeps two,
+because two worked examples prove the claim and nine turns a post into a
+reference. Decision avoidance leads because every reader has received that
+email. The classifier point and the provenance carve-out were dropped for
+length, so if a comment raises either one, the blog post has the full answer.
+
+The closing line is the engagement mechanic and it is also honest. The post
+was written under CLP, so the invitation to file a bug report is real rather
+than rhetorical. Do not use it if you edit the post into something that no
+longer follows the rules.
