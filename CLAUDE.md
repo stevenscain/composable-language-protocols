@@ -93,10 +93,10 @@ they are the test fixture. Do not remove them.
 
 ## Running the evals
 
-The prose cases have no automated runner. To evaluate a change, give a model
-`CLP.txt`, then feed it the `INPUT` from a case in `evals/cases.txt` and
-confirm the output satisfies that case's `CHECK` list and its
-`EXPECTED PROTOCOLS`.
+The canonical cases are in `evals/cases.txt`. The executable model suite in
+`evals/model` uses the same prompts and adds Markdown graders. Each grader has
+a source fingerprint. If a source case changes, review the grader and update
+its fingerprint.
 
 The structure of `CLP.txt` is checked automatically:
 
@@ -114,6 +114,18 @@ node evals/check-hook.js
 This check covers startup and post-compaction injection, the operational
 context size limit, automatic and named protocol prompts, standalone toggle
 commands, disabled-state persistence, false matches, and silent failure.
+
+Check model-evaluation alignment and its mutation suite:
+
+```
+node evals/check-model-evals.js
+node evals/check-model-evals-tests.js
+```
+
+The alignment checker requires every executable prompt to match its canonical
+case. It also verifies each grader's source case and fingerprint. The mutation
+suite proves that prompt drift, source drift, missing fingerprints, and wrong
+case references fail validation.
 
 The checker verifies that compatibility and automatic-exclusion declarations
 reference known protocols and are reciprocal. It also verifies that every

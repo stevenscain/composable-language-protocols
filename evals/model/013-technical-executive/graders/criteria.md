@@ -1,4 +1,5 @@
 # Criteria
+<!-- eval-source: CASE 013 sha256=8378cdc39a1257021c9e6288ad05aad5cb06cb4745599471da4cfc1c494fe9d3 -->
 
 Return PASS only if the response satisfies all requirements:
 

@@ -17,7 +17,9 @@ Created by Steve Cain.
 | `evals/check-compatibility.js` | Structural checks for `CLP.txt`. Verifies declaration references and reciprocity, then checks every selection-map set. |
 | `evals/check-compatibility-tests.js` | Mutation tests that prove the structural checker rejects seven classes of invalid specification. |
 | `evals/check-hook.js` | Behavioral checks for lifecycle injection, scoped protocol context, toggles, and silent failure. |
-| `evals/check-model-evals.js` | Structural checks that keep the executable model suite aligned with `evals/cases.txt`. |
+| `evals/check-model-evals.js` | Checks that executable prompts match `evals/cases.txt` and that grader source fingerprints are current. |
+| `evals/check-model-evals-tests.js` | Mutation tests for prompt drift, source drift, missing fingerprints, and incorrect case references. |
+| `evals/run-cli-baseline.js` | Cost-capped fallback baseline runner for accounts without native plugin evaluations. |
 | `evals/check-packaging.js` | Cross-checks the Claude and Codex manifests, hooks, versions, and license files. |
 | `.github/workflows/ci.yml` | GitHub Actions workflow that runs the structural, hook, packaging, model-definition, and status-line checks. |
 | `.claude-plugin/` | Plugin and marketplace manifests for the Claude Code plugin. |
@@ -76,7 +78,9 @@ node --check evals/check-compatibility.js
 node --check evals/check-compatibility-tests.js
 node --check evals/check-hook.js
 node --check evals/check-model-evals.js
+node --check evals/check-model-evals-tests.js
 node --check evals/check-packaging.js
+node --check evals/run-cli-baseline.js
 node --check evals/run-model-evals.js
 node --check hooks/clp-context.js
 node --check hooks/clp-context-codex.js
@@ -85,13 +89,17 @@ node evals/check-compatibility-tests.js
 node evals/check-hook.js
 node evals/check-packaging.js
 node evals/check-model-evals.js
+node evals/check-model-evals-tests.js
 ```
 
 ## Model evaluations
 
 The `evals/model` directory converts all sixteen cases into Claude's native
 plugin evaluation format. Each case contains the source prompt and a grader
-that checks the expected protocol behavior and output requirements.
+that checks the expected protocol behavior and output requirements. The
+alignment checker compares each executable prompt with its source case. Each
+grader also contains a source fingerprint, so a changed source case requires a
+grader review.
 
 Run one cost-capped generation and grading pass per case:
 
@@ -105,6 +113,20 @@ no-plugin baseline arm. See
 `evals/model/README.md` for environment-variable overrides. Claude plugin
 evaluations require a Claude CLI and account that support the early-access
 `plugin eval` command.
+
+If native plugin evaluations are unavailable, run the standard CLI fallback:
+
+```powershell
+node evals/run-cli-baseline.js evals/baselines/YYYY-MM-DD-haiku
+```
+
+The fallback compares one with-CLP response and one without-CLP response per
+case, then grades both responses. It records checkpoints, raw results, costs,
+and a Markdown summary. The fallback tests the specification's effect. The hook
+suite tests plugin delivery separately.
+
+The first recorded fallback baseline scored 14/16 with CLP and 6/16 without
+CLP. See [the baseline summary](evals/baselines/2026-08-08-haiku/README.md).
 
 ## Codex plugin
 

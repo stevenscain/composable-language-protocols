@@ -28,7 +28,9 @@ jobs:
           node --check evals/check-compatibility-tests.js
           node --check evals/check-hook.js
           node --check evals/check-model-evals.js
+          node --check evals/check-model-evals-tests.js
           node --check evals/check-packaging.js
+          node --check evals/run-cli-baseline.js
           node --check evals/run-model-evals.js
           node --check hooks/clp-context.js
           node --check hooks/clp-context-codex.js
@@ -47,6 +49,9 @@ jobs:
 
       - name: Check model evaluation definitions
         run: node evals/check-model-evals.js
+
+      - name: Test model evaluation alignment checker
+        run: node evals/check-model-evals-tests.js
 
       - name: Test bash status line
         shell: bash

@@ -1,0 +1,2477 @@
+{
+  "schemaVersion": 1,
+  "createdAt": "2026-08-09T01:16:51.281Z",
+  "source": {
+    "clpSha256": "746b0e7a042fc0c4a53dc00c5294a15735eef791d7457230f1526eec1cf84735",
+    "casesSha256": "12e9a1755c3315840af4ea14ff37d74d9a3a8875be4972c7e92f0a8e44817235",
+    "modelSuiteSha256": "3ef8cdadffe5201f406f9e85f5f1f7205addc5c47149b7dc11ebbd7d877c165f"
+  },
+  "method": "standard-claude-cli-fallback",
+  "nativePluginEvalAvailable": false,
+  "runsPerCase": 1,
+  "model": "haiku",
+  "judgeModel": "haiku",
+  "maxCostUsd": 5,
+  "maxCallCostUsd": 0.25,
+  "priorCostUsd": 0.416617,
+  "timeoutMs": 300000,
+  "totalCostUsd": 1.0812990000000002,
+  "summary": {
+    "caseCount": 16,
+    "withClpPasses": 14,
+    "withoutClpPasses": 6,
+    "withClpScore": 0.875,
+    "withoutClpScore": 0.375,
+    "scoreDelta": 0.5
+  },
+  "cases": [
+    {
+      "id": "001",
+      "name": "001-general-explanation",
+      "prompt": "Explain why a database index can make a query faster.",
+      "criteria": "# Criteria\n<!-- eval-source: CASE 001 sha256=d8b8b6883b0521d47f03baaefcd2999a7f077551df2d881f55b8d480ad42c28c -->\n\r\nReturn PASS only if the response satisfies all requirements:\r\n\r\n- Its behavior matches CORE + PLAIN without requiring the response to name the protocols.\r\n- It puts the main explanation first.\r\n- It explains accurately that an index can reduce the data the database must examine.\r\n- It uses direct sentences and avoids unnecessary jargon.\r\n- It contains no em dash.\r\n\r\nReturn FAIL if any requirement is missing or contradicted.",
+      "withClp": {
+        "response": "An index helps a database find data faster by organizing column values so the database doesn't need to examine every row.\n\nHow it works:\n\nWithout an index, the database performs a full table scan. It examines every row to find matches. For large tables, this is slow.\n\nWith an index, the database creates a sorted data structure (typically a B-tree) for the indexed column. To find matching rows, the database searches this structure instead of scanning all rows. This is faster because the database avoids examining most rows.\n\nExample:\n\nWithout an index, finding customers named \"Smith\" requires examining millions of rows. With an index, the database navigates directly to \"Smith\" entries.\n\nWhere indexes help:\n\n- WHERE clauses: find rows matching a condition faster\n- JOIN clauses: match rows between tables faster\n- ORDER BY: return results in sorted order without sorting them\n- Unique constraints: check for duplicate values faster\n\nTrade-off:\n\nIndexes consume disk space. They slow down INSERT, UPDATE, and DELETE operations because the database must update both the index and the table.",
+        "verdict": "PASS",
+        "reason": "The response satisfies all five criteria: it opens with the main explanation, clearly explains that indexes reduce data examination, uses direct accessible language, maintains logical flow, and contains no em dashes.",
+        "costUsd": 0.032076,
+        "usage": {
+          "input_tokens": 3183,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 5659,
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "not_available",
+          "iterations": [
+            {
+              "input_tokens": 3183,
+              "output_tokens": 5659,
+              "cache_read_input_tokens": 0,
+              "cache_creation_input_tokens": 0,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard"
+        },
+        "modelUsage": {
+          "claude-haiku-4-5-20251001": {
+            "inputTokens": 3711,
+            "outputTokens": 5673,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0,
+            "webSearchRequests": 0,
+            "costUSD": 0.032076,
+            "contextWindow": 200000,
+            "maxOutputTokens": 32000,
+            "canonicalModel": "claude-haiku-4-5",
+            "provider": "firstParty"
+          }
+        }
+      },
+      "withoutClp": {
+        "response": "# Why Database Indexes Make Queries Faster\n\n## Without an Index\nWhen you query data without an index, the database must perform a **full table scan** — it reads every row in the table sequentially to find matching records. This is slow for large tables.\n\n## With an Index\nAn index creates a **sorted data structure** (typically a B-tree) that maps values to their row locations. This enables:\n\n### 1. **Faster Data Location**\n- Instead of scanning all rows, the index narrows down candidates through binary search\n- For a table with 1 million rows, you might check ~20 rows instead of all 1 million\n\n### 2. **Reduced Disk I/O**\n- Fewer pages need to be read from disk into memory\n- Disk I/O is typically the slowest part of database operations\n\n### 3. **Optimized Search**\n- Indexes on WHERE clause columns let the database jump directly to relevant data\n- Indexes on JOIN columns speed up table joins\n\n### 4. **Sorted Access**\n- Indexes maintain data in sorted order, making ORDER BY and range queries (e.g., `age > 25 AND age < 65`) efficient\n\n## Trade-offs\n- **Slower writes**: INSERT, UPDATE, and DELETE operations must update both the table and indexes\n- **Storage overhead**: Indexes consume additional disk space\n- **Maintenance cost**: The database must keep indexes synchronized with table changes\n\n**Best practice**: Index columns frequently used in WHERE clauses, JOINs, and ORDER BY statements, but avoid over-indexing.",
+        "verdict": "FAIL",
+        "reason": "The response violates criterion 5 by containing an em dash (\"full table scan — it reads\"). Additionally, it fails criterion 2 by prioritizing section headings over the main explanation, and violates criterion 4 by including unnecessary technical jargon (binary search, disk I/O, range queries).",
+        "costUsd": 0.003014,
+        "usage": {
+          "input_tokens": 206,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 442,
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "not_available",
+          "iterations": [
+            {
+              "input_tokens": 206,
+              "output_tokens": 442,
+              "cache_read_input_tokens": 0,
+              "cache_creation_input_tokens": 0,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard"
+        },
+        "modelUsage": {
+          "claude-haiku-4-5-20251001": {
+            "inputTokens": 734,
+            "outputTokens": 456,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0,
+            "webSearchRequests": 0,
+            "costUSD": 0.003014,
+            "contextWindow": 200000,
+            "maxOutputTokens": 32000,
+            "canonicalModel": "claude-haiku-4-5",
+            "provider": "firstParty"
+          }
+        }
+      },
+      "judge": {
+        "costUsd": 0.020144,
+        "usage": {
+          "input_tokens": 1804,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 3397,
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "not_available",
+          "iterations": [
+            {
+              "input_tokens": 1804,
+              "output_tokens": 3397,
+              "cache_read_input_tokens": 0,
+              "cache_creation_input_tokens": 0,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard"
+        },
+        "modelUsage": {
+          "claude-haiku-4-5-20251001": {
+            "inputTokens": 3089,
+            "outputTokens": 3411,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0,
+            "webSearchRequests": 0,
+            "costUSD": 0.020144,
+            "contextWindow": 200000,
+            "maxOutputTokens": 32000,
+            "canonicalModel": "claude-haiku-4-5",
+            "provider": "firstParty"
+          }
+        }
+      }
+    },
+    {
+      "id": "002",
+      "name": "002-technical-instructions",
+      "prompt": "Explain how to restart a Windows service named OrderProcessor and verify that it started successfully.",
+      "criteria": "# Criteria\n<!-- eval-source: CASE 002 sha256=a703038b706927fdb1c046d42d495e361d04c6ccaca2a6fa2c88964089b4408f -->\n\r\nReturn PASS only if the response satisfies all requirements:\r\n\r\n- Its behavior matches CORE + PLAIN + TECHNICAL without requiring protocol names.\r\n- It gives executable Windows instructions for the OrderProcessor service.\r\n- It uses imperative steps with one primary action per step when practical.\r\n- It includes a separate verification that the service is running.\r\n- It uses consistent terminology and unambiguous references.\r\n- It contains no em dash.\r\n\r\nReturn FAIL if any requirement is missing or contradicted.",
+      "withClp": {
+        "response": "Restart the service:\n\n1. Open PowerShell as Administrator.\n2. Run: `Restart-Service -Name OrderProcessor`\n\nVerify the service started:\n\n3. Run: `Get-Service -Name OrderProcessor`\n4. Verify the Status column shows \"Running\".",
+        "verdict": "PASS",
+        "reason": "The WITH CLP candidate satisfies all six criteria: it provides executable PowerShell instructions without protocol names, uses one clear primary action per step (open admin PowerShell, run restart command, run query command, verify status), includes a separate verification section, maintains consistent terminology, and contains no em dashes.",
+        "costUsd": 0.027658000000000002,
+        "usage": {
+          "input_tokens": 3189,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 4773,
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "not_available",
+          "iterations": [
+            {
+              "input_tokens": 3189,
+              "output_tokens": 4773,
+              "cache_read_input_tokens": 0,
+              "cache_creation_input_tokens": 0,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard"
+        },
+        "modelUsage": {
+          "claude-haiku-4-5-20251001": {
+            "inputTokens": 3723,
+            "outputTokens": 4787,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0,
+            "webSearchRequests": 0,
+            "costUSD": 0.027658000000000002,
+            "contextWindow": 200000,
+            "maxOutputTokens": 32000,
+            "canonicalModel": "claude-haiku-4-5",
+            "provider": "firstParty"
+          }
+        }
+      },
+      "withoutClp": {
+        "response": "# Restarting the OrderProcessor Windows Service\n\n## Method 1: Using Services Manager (GUI)\n\n1. **Open Services Manager:**\n   - Press `Win + R`, type `services.msc`, and press Enter\n   - Or: Control Panel → Administrative Tools → Services\n\n2. **Locate the service:**\n   - Scroll to find \"OrderProcessor\"\n\n3. **Restart the service:**\n   - Right-click on \"OrderProcessor\"\n   - Select \"Restart\"\n   - Wait for it to complete\n\n4. **Verify status:**\n   - Check that the \"Status\" column shows \"Running\"\n   - Confirm \"Startup Type\" is set appropriately (Automatic, Manual, etc.)\n\n## Method 2: Using Command Prompt (CMD)\n\n**Run as Administrator:**\n```cmd\nnet stop OrderProcessor\nnet start OrderProcessor\n```\n\n**Verify it's running:**\n```cmd\nsc query OrderProcessor\n```\nLook for `STATE : 4 RUNNING` in the output.\n\n## Method 3: Using PowerShell\n\n**Run as Administrator:**\n```powershell\nRestart-Service -Name OrderProcessor -Force\n```\n\n**Verify status:**\n```powershell\nGet-Service -Name OrderProcessor\n```\nShould display `Running` status.\n\n## Verification Checklist\n\n✓ Status shows **\"Running\"**  \n✓ No error messages appear  \n✓ Service responds to requests/logs show activity  \n✓ Application that depends on it is functioning  \n\n**Troubleshooting:** If it won't start, check the Event Viewer for error messages under Windows Logs → System.",
+        "verdict": "FAIL",
+        "reason": "The WITHOUT CLP candidate fails criterion 3. Method 1, Step 3 contains multiple sub-actions (right-click, select, wait) when the criterion requires one primary action per step when practical. Method 1, Step 4 similarly lists two distinct sub-actions (check status, confirm startup type). This violates the imperative structure requirement.",
+        "costUsd": 0.0033359999999999996,
+        "usage": {
+          "input_tokens": 212,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 502,
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "not_available",
+          "iterations": [
+            {
+              "input_tokens": 212,
+              "output_tokens": 502,
+              "cache_read_input_tokens": 0,
+              "cache_creation_input_tokens": 0,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard"
+        },
+        "modelUsage": {
+          "claude-haiku-4-5-20251001": {
+            "inputTokens": 746,
+            "outputTokens": 518,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0,
+            "webSearchRequests": 0,
+            "costUSD": 0.0033359999999999996,
+            "contextWindow": 200000,
+            "maxOutputTokens": 32000,
+            "canonicalModel": "claude-haiku-4-5",
+            "provider": "firstParty"
+          }
+        }
+      },
+      "judge": {
+        "costUsd": 0.022075,
+        "usage": {
+          "input_tokens": 1672,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 3834,
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "not_available",
+          "iterations": [
+            {
+              "input_tokens": 1672,
+              "output_tokens": 3834,
+              "cache_read_input_tokens": 0,
+              "cache_creation_input_tokens": 0,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard"
+        },
+        "modelUsage": {
+          "claude-haiku-4-5-20251001": {
+            "inputTokens": 2825,
+            "outputTokens": 3850,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0,
+            "webSearchRequests": 0,
+            "costUSD": 0.022075,
+            "contextWindow": 200000,
+            "maxOutputTokens": 32000,
+            "canonicalModel": "claude-haiku-4-5",
+            "provider": "firstParty"
+          }
+        }
+      }
+    },
+    {
+      "id": "003",
+      "name": "003-technical-rewrite",
+      "prompt": "CLP: TECHNICAL\r\n\r\nRewrite this as instructions:\r\n\r\nOnce you've gotten the server up and running, you'll probably want to go ahead and check the logs to make sure that everything looks good before proceeding with the deployment.",
+      "criteria": "# Criteria\n<!-- eval-source: CASE 003 sha256=d390ad989377fd1ba3a5262a4687c22ffe3fb396653b239a7db898c9ebbda0c3 -->\n\r\nReturn PASS only if the response satisfies all requirements:\r\n\r\n- It gives direct instructions to start the server, check the logs, and continue only when the logs show no blocking errors.\r\n- It removes filler and idioms.\r\n- It uses imperative verbs.\r\n- It does not introduce unnecessary synonyms or explanations.\r\n\r\nReturn FAIL if any requirement is missing or contradicted.",
+      "withClp": {
+        "response": "Start the server.\nCheck the server logs.\nVerify the server started without errors.\nDeploy.",
+        "verdict": "PASS",
+        "reason": "Candidate meets all four criteria: provides direct instructions to start server, check logs, verify no errors, and deploy; removes filler language; uses imperative verbs throughout; and contains no unnecessary synonyms or explanations.",
+        "costUsd": 0.011305,
+        "usage": {
+          "input_tokens": 3220,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 1491,
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "not_available",
+          "iterations": [
+            {
+              "input_tokens": 3220,
+              "output_tokens": 1491,
+              "cache_read_input_tokens": 0,
+              "cache_creation_input_tokens": 0,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard"
+        },
+        "modelUsage": {
+          "claude-haiku-4-5-20251001": {
+            "inputTokens": 3785,
+            "outputTokens": 1504,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0,
+            "webSearchRequests": 0,
+            "costUSD": 0.011305,
+            "contextWindow": 200000,
+            "maxOutputTokens": 32000,
+            "canonicalModel": "claude-haiku-4-5",
+            "provider": "firstParty"
+          }
+        }
+      },
+      "withoutClp": {
+        "response": "# Instructions\n\n1. Start the server and verify it is up and running.\n2. Check the logs for any errors or warnings.\n3. Confirm that all system components are functioning as expected.\n4. Proceed with the deployment once verification is complete.",
+        "verdict": "FAIL",
+        "reason": "Candidate violates requirements 2 and 4. Step 3 introduces unnecessary expansion (\"Confirm that all system components are functioning as expected\") beyond checking logs for blocking errors, adding explanatory concepts and language not in the original requirement.",
+        "costUsd": 0.0024879999999999998,
+        "usage": {
+          "input_tokens": 243,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 323,
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "not_available",
+          "iterations": [
+            {
+              "input_tokens": 243,
+              "output_tokens": 323,
+              "cache_read_input_tokens": 0,
+              "cache_creation_input_tokens": 0,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard"
+        },
+        "modelUsage": {
+          "claude-haiku-4-5-20251001": {
+            "inputTokens": 808,
+            "outputTokens": 336,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0,
+            "webSearchRequests": 0,
+            "costUSD": 0.0024879999999999998,
+            "contextWindow": 200000,
+            "maxOutputTokens": 32000,
+            "canonicalModel": "claude-haiku-4-5",
+            "provider": "firstParty"
+          }
+        }
+      },
+      "judge": {
+        "costUsd": 0.012582,
+        "usage": {
+          "input_tokens": 1323,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 2078,
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "not_available",
+          "iterations": [
+            {
+              "input_tokens": 1323,
+              "output_tokens": 2078,
+              "cache_read_input_tokens": 0,
+              "cache_creation_input_tokens": 0,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard"
+        },
+        "modelUsage": {
+          "claude-haiku-4-5-20251001": {
+            "inputTokens": 2127,
+            "outputTokens": 2091,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0,
+            "webSearchRequests": 0,
+            "costUSD": 0.012582,
+            "contextWindow": 200000,
+            "maxOutputTokens": 32000,
+            "canonicalModel": "claude-haiku-4-5",
+            "provider": "firstParty"
+          }
+        }
+      }
+    },
+    {
+      "id": "004",
+      "name": "004-executive-communication",
+      "prompt": "We have discovered that the current database version will stop receiving security updates in six months. The upgrade requires approximately three developer-weeks. Testing will require another week. If we do not upgrade, we will operate an unsupported database.\r\n\r\nWrite this for a decision-maker.",
+      "criteria": "# Criteria\n<!-- eval-source: CASE 004 sha256=e51f3bba6a2cef192bcea06c5b635abd517df63e8a98038397729e2289a85bae -->\n\r\nReturn PASS only if the response satisfies all requirements:\r\n\r\n- Its behavior matches CORE + PLAIN + EXECUTIVE without requiring protocol names.\r\n- It puts the unsupported-database risk or the upgrade recommendation first.\r\n- It retains the six-month deadline, three developer-weeks, and one testing week.\r\n- It gives a useful decision or next action.\r\n- It excludes implementation detail that does not affect the decision.\r\n\r\nReturn FAIL if any requirement is missing or contradicted.",
+      "withClp": {
+        "response": "Our database version stops receiving security updates in six months. Without an upgrade, we will operate unsupported software with unpatched vulnerabilities.\n\nThe upgrade costs four developer-weeks: three weeks for development and one week for testing.\n\nWe must choose between upgrading before support ends or continuing with unsupported software.",
+        "verdict": "FAIL",
+        "reason": "The candidate presents the decision as a neutral choice without recommending action or providing clear next steps. For a decision-maker, it fails criterion 4 (\"It gives a useful decision or next action\") because it frames the dilemma but doesn't direct what the decision-maker should do.",
+        "costUsd": 0.017324,
+        "usage": {
+          "input_tokens": 3227,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 2691,
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "not_available",
+          "iterations": [
+            {
+              "input_tokens": 3227,
+              "output_tokens": 2691,
+              "cache_read_input_tokens": 0,
+              "cache_creation_input_tokens": 0,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard"
+        },
+        "modelUsage": {
+          "claude-haiku-4-5-20251001": {
+            "inputTokens": 3799,
+            "outputTokens": 2705,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0,
+            "webSearchRequests": 0,
+            "costUSD": 0.017324,
+            "contextWindow": 200000,
+            "maxOutputTokens": 32000,
+            "canonicalModel": "claude-haiku-4-5",
+            "provider": "firstParty"
+          }
+        }
+      },
+      "withoutClp": {
+        "response": "# Database Upgrade: Decision Required\n\n**Issue:** Our current database version will reach end-of-support in six months and will no longer receive security patches.\n\n**Recommendation:** Upgrade to a supported version.\n\n**Timeline & Resource Impact:**\n- Development: 3 weeks\n- Testing: 1 week\n- **Total: 4 weeks** (approximately one developer-month)\n\n**Risk of Inaction:** Operating unsupported database software exposes the company to known security vulnerabilities with no vendor remediation path. This creates compliance, operational, and reputational risk.\n\n**Next Steps:** Authorize the upgrade work now to complete it before the support window closes, or formally accept the operational risk of running an unsupported system.",
+        "verdict": "PASS",
+        "reason": "The candidate satisfies all requirements: it explicitly recommends upgrading, puts the unsupported-database risk and recommendation first, retains the six-month deadline and resource estimates (3 developer-weeks + 1 testing week), gives clear actionable next steps, and excludes irrelevant implementation detail while addressing decision-relevant consequences.",
+        "costUsd": 0.0023569999999999997,
+        "usage": {
+          "input_tokens": 250,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 294,
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "not_available",
+          "iterations": [
+            {
+              "input_tokens": 250,
+              "output_tokens": 294,
+              "cache_read_input_tokens": 0,
+              "cache_creation_input_tokens": 0,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard"
+        },
+        "modelUsage": {
+          "claude-haiku-4-5-20251001": {
+            "inputTokens": 822,
+            "outputTokens": 307,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0,
+            "webSearchRequests": 0,
+            "costUSD": 0.0023569999999999997,
+            "contextWindow": 200000,
+            "maxOutputTokens": 32000,
+            "canonicalModel": "claude-haiku-4-5",
+            "provider": "firstParty"
+          }
+        }
+      },
+      "judge": {
+        "costUsd": 0.020814999999999997,
+        "usage": {
+          "input_tokens": 1502,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 3652,
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "not_available",
+          "iterations": [
+            {
+              "input_tokens": 1502,
+              "output_tokens": 3652,
+              "cache_read_input_tokens": 0,
+              "cache_creation_input_tokens": 0,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard"
+        },
+        "modelUsage": {
+          "claude-haiku-4-5-20251001": {
+            "inputTokens": 2485,
+            "outputTokens": 3666,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0,
+            "webSearchRequests": 0,
+            "costUSD": 0.020814999999999997,
+            "contextWindow": 200000,
+            "maxOutputTokens": 32000,
+            "canonicalModel": "claude-haiku-4-5",
+            "provider": "firstParty"
+          }
+        }
+      }
+    },
+    {
+      "id": "005",
+      "name": "005-reporting",
+      "prompt": "Rewrite this as a factual report:\r\n\r\nThe disastrous software release caused thousands of angry users to lose access to the service. The engineering team clearly failed to test the system properly.",
+      "criteria": "# Criteria\n<!-- eval-source: CASE 005 sha256=7ab8c42a7028d2eba49dcc64c9300950e3475c5d56d0b74ef8c46a15d592026b -->\n\r\nReturn PASS only if the response satisfies all requirements:\r\n\r\n- Its behavior matches CORE + PLAIN + REPORTING without requiring protocol names.\r\n- It removes loaded descriptions such as \"disastrous\" and \"angry.\"\r\n- It does not claim that inadequate testing caused the outage without evidence.\r\n- It separates verified facts from interpretation and identifies material uncertainty.\r\n- It does not invent attribution, dates, numbers, or causes.\r\n\r\nReturn FAIL if any requirement is missing or contradicted.",
+      "withClp": {
+        "response": "Thousands of users lost access to the service after the software release. The cause was not identified.",
+        "verdict": "PASS",
+        "reason": "The response removes loaded language, avoids claiming testing failure without evidence, and explicitly acknowledges material uncertainty by stating \"The cause was not identified.\" It presents only verified facts without inventing attribution, dates, numbers, or causes.",
+        "costUsd": 0.014006999999999999,
+        "usage": {
+          "input_tokens": 3211,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 2031,
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "not_available",
+          "iterations": [
+            {
+              "input_tokens": 3211,
+              "output_tokens": 2031,
+              "cache_read_input_tokens": 0,
+              "cache_creation_input_tokens": 0,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard"
+        },
+        "modelUsage": {
+          "claude-haiku-4-5-20251001": {
+            "inputTokens": 3767,
+            "outputTokens": 2048,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0,
+            "webSearchRequests": 0,
+            "costUSD": 0.014006999999999999,
+            "contextWindow": 200000,
+            "maxOutputTokens": 32000,
+            "canonicalModel": "claude-haiku-4-5",
+            "provider": "firstParty"
+          }
+        }
+      },
+      "withoutClp": {
+        "response": "# Software Release Incident Report\n\nA software release resulted in a service outage that prevented user access to the platform. The incident affected a significant number of users, who reported dissatisfaction with the service interruption. Post-incident review indicated gaps in the testing procedures conducted prior to the release.",
+        "verdict": "FAIL",
+        "reason": "While removing loaded language, the response attributes the incident to testing gaps by stating \"Post-incident review indicated gaps in the testing procedures.\" This claims inadequate testing without evidence it caused the outage, confusing verified findings with unsubstantiated causation and failing to acknowledge uncertainty about whether testing gaps contributed to this specific incident.",
+        "costUsd": 0.00258,
+        "usage": {
+          "input_tokens": 234,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 341,
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "not_available",
+          "iterations": [
+            {
+              "input_tokens": 234,
+              "output_tokens": 341,
+              "cache_read_input_tokens": 0,
+              "cache_creation_input_tokens": 0,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard"
+        },
+        "modelUsage": {
+          "claude-haiku-4-5-20251001": {
+            "inputTokens": 790,
+            "outputTokens": 358,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0,
+            "webSearchRequests": 0,
+            "costUSD": 0.00258,
+            "contextWindow": 200000,
+            "maxOutputTokens": 32000,
+            "canonicalModel": "claude-haiku-4-5",
+            "provider": "firstParty"
+          }
+        }
+      },
+      "judge": {
+        "costUsd": 0.019689,
+        "usage": {
+          "input_tokens": 1344,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 3489,
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "not_available",
+          "iterations": [
+            {
+              "input_tokens": 1344,
+              "output_tokens": 3489,
+              "cache_read_input_tokens": 0,
+              "cache_creation_input_tokens": 0,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard"
+        },
+        "modelUsage": {
+          "claude-haiku-4-5-20251001": {
+            "inputTokens": 2169,
+            "outputTokens": 3504,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0,
+            "webSearchRequests": 0,
+            "costUSD": 0.019689,
+            "contextWindow": 200000,
+            "maxOutputTokens": 32000,
+            "canonicalModel": "claude-haiku-4-5",
+            "provider": "firstParty"
+          }
+        }
+      }
+    },
+    {
+      "id": "006",
+      "name": "006-research",
+      "prompt": "Model A scored 91 percent on our 200-question test. Model B scored 86 percent. This proves that Model A is the better model.\r\n\r\nExplain what the evidence supports.",
+      "criteria": "# Criteria\n<!-- eval-source: CASE 006 sha256=2aa2b60147107244a041f415419941543c170c061ac18ec5cf1d2d8aeea26b92 -->\n\r\nReturn PASS only if the response satisfies all requirements:\r\n\r\n- Its behavior matches CORE + PLAIN + RESEARCH without requiring protocol names.\r\n- It preserves both scores and the 200-question test size.\r\n- It states that Model A performed better on this test.\r\n- It does not claim that the test proves universal superiority.\r\n- It states a material limitation or uncertainty about performance outside the test.\r\n\r\nReturn FAIL if any requirement is missing or contradicted.",
+      "withClp": {
+        "response": "The evidence supports that Model A scored higher on this specific 200-question test. It does not prove that Model A is the better model.\n\nHere's why:\n\n**What the scores show:**\nModel A performed better on the tested questions (5 percentage points higher).\n\n**What remains uncertain:**\n- Whether Model A would perform better on different questions.\n- Whether the 5-point difference is statistically significant.\n- Whether the test measures what matters for your use case.\n- How the models compare on other dimensions: speed, cost, reliability, bias, or specific task types.\n\n**Why \"better\" is incomplete:**\n\"Better\" depends on your definition. Model A might score higher on this test but perform worse on tasks the test doesn't cover, or be slower, or be more expensive.\n\nTo claim Model A is the better model, you would need to evaluate what matters for your actual application and gather evidence on those dimensions.",
+        "verdict": "PASS",
+        "reason": "Preserves scores (91%/86%) and test size (200 questions). States Model A performed better on the test. Explicitly rejects universal superiority claim. Lists four specific material limitations/uncertainties about performance outside the test (generalization to different questions, statistical significance, use-case relevance, other performance dimensions). Uses clear communication without requiring protocol names.",
+        "costUsd": 0.007239,
+        "usage": {
+          "input_tokens": 3212,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 680,
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "not_available",
+          "iterations": [
+            {
+              "input_tokens": 3212,
+              "output_tokens": 680,
+              "cache_read_input_tokens": 0,
+              "cache_creation_input_tokens": 0,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard"
+        },
+        "modelUsage": {
+          "claude-haiku-4-5-20251001": {
+            "inputTokens": 3769,
+            "outputTokens": 694,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0,
+            "webSearchRequests": 0,
+            "costUSD": 0.007239,
+            "contextWindow": 200000,
+            "maxOutputTokens": 32000,
+            "canonicalModel": "claude-haiku-4-5",
+            "provider": "firstParty"
+          }
+        }
+      },
+      "withoutClp": {
+        "response": "# What the Evidence Actually Supports\n\nThe evidence supports that:\n\n- **Model A scored higher on this specific test** (91% vs 86%)\n- **Model A outperformed Model B on these 200 questions** by 5 percentage points\n\n---\n\n# What the Evidence Does NOT Necessarily Support\n\nThe evidence alone does **not** prove that Model A is \"the better model\" in general because:\n\n1. **Limited scope** — Performance on one 200-question test tells us nothing about how these models perform on different tasks, domains, or question types\n\n2. **Unknown significance** — A 5-point difference might be:\n   - Statistically insignificant with limited data\n   - Practically negligible depending on the application\n   - Due to chance variation\n\n3. **Undefined criteria** — \"Better\" is context-dependent. Better for what? Speed? Accuracy? Cost? Safety? The test only measures accuracy on one specific set of questions\n\n4. **No information about** — generalization to new questions, performance on edge cases, practical utility, reliability, or other important metrics\n\n---\n\n**Summary:** The evidence supports a narrower claim: *Model A performed better on this particular test.* To claim one model is objectively \"better,\" you'd need evidence across multiple tests, use cases, and performance metrics.",
+        "verdict": "PASS",
+        "reason": "Preserves scores (91%/86%) and test size (200 questions). Clearly states Model A performed better on this test. Explicitly states evidence does not prove universal superiority. Identifies multiple material limitations: limited scope (different tasks/domains), unknown statistical/practical significance, context-dependency of \"better,\" and missing information on other metrics. Uses clear structure and evidence-based reasoning without requiring protocol names.",
+        "costUsd": 0.003632,
+        "usage": {
+          "input_tokens": 235,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 554,
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "not_available",
+          "iterations": [
+            {
+              "input_tokens": 235,
+              "output_tokens": 554,
+              "cache_read_input_tokens": 0,
+              "cache_creation_input_tokens": 0,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard"
+        },
+        "modelUsage": {
+          "claude-haiku-4-5-20251001": {
+            "inputTokens": 792,
+            "outputTokens": 568,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0,
+            "webSearchRequests": 0,
+            "costUSD": 0.003632,
+            "contextWindow": 200000,
+            "maxOutputTokens": 32000,
+            "canonicalModel": "claude-haiku-4-5",
+            "provider": "firstParty"
+          }
+        }
+      },
+      "judge": {
+        "costUsd": 0.01761,
+        "usage": {
+          "input_tokens": 1742,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 2915,
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "not_available",
+          "iterations": [
+            {
+              "input_tokens": 1742,
+              "output_tokens": 2915,
+              "cache_read_input_tokens": 0,
+              "cache_creation_input_tokens": 0,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard"
+        },
+        "modelUsage": {
+          "claude-haiku-4-5-20251001": {
+            "inputTokens": 2965,
+            "outputTokens": 2929,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0,
+            "webSearchRequests": 0,
+            "costUSD": 0.01761,
+            "contextWindow": 200000,
+            "maxOutputTokens": 32000,
+            "canonicalModel": "claude-haiku-4-5",
+            "provider": "firstParty"
+          }
+        }
+      }
+    },
+    {
+      "id": "007",
+      "name": "007-technical-research",
+      "prompt": "We tested three retrieval algorithms on 50 repositories. Algorithm C had the lowest median retrieval time. Explain what we can conclude.",
+      "criteria": "# Criteria\n<!-- eval-source: CASE 007 sha256=ee5696bc140013e8cc6ed2c4cc35f7cb9675f6878aa6420e61beef5f4f2a27c4 -->\n\r\nReturn PASS only if the response satisfies all requirements:\r\n\r\n- Its behavior matches CORE + PLAIN + TECHNICAL + RESEARCH without requiring protocol names.\r\n- It states that Algorithm C had the lowest median retrieval time in the tested sample.\r\n- It preserves the three-algorithm and 50-repository scope.\r\n- It uses precise retrieval terminology consistently.\r\n- It does not generalize beyond the experiment.\r\n- It identifies an important limitation or competing explanation when relevant.\r\n\r\nReturn FAIL if any requirement is missing or contradicted.",
+      "withClp": {
+        "response": "# What We Can Conclude\n\nAlgorithm C had the lowest median retrieval time on your test set of 50 repositories.\n\n# What We Cannot Yet Conclude\n\nWe cannot conclude that Algorithm C performs best in general without additional information:\n\n**Statistical significance**: The difference between algorithms may reflect normal variation rather than a real performance gap. You need to calculate whether the difference is statistically significant.\n\n**Generalization**: The result applies only to these 50 repositories. If your repositories are not representative of your target use case, the result may not hold elsewhere.\n\n**Other metrics**: You tested only retrieval time. Algorithm C might perform worse on accuracy, memory use, computational cost, or other dimensions that matter for your application.\n\n**Practical impact**: You should evaluate whether the time difference is meaningful in absolute terms. A 2% difference and a 50% difference are both the \"lowest,\" but the implications differ.\n\n**Median choice**: The median captures typical performance but obscures variation. Consider whether percentiles (p95, p99) or worst-case performance matter for your use case.\n\n# Next Steps\n\nTo strengthen your conclusion, measure statistical significance, test on additional repositories, evaluate tradeoffs with other metrics, and confirm that the improvement matters for your application.",
+        "verdict": "PASS",
+        "reason": "Response clearly states Algorithm C had the lowest median retrieval time on the 50-repository test set, explicitly separates what can and cannot be concluded, preserves three-algorithm scope, uses precise retrieval terminology consistently, carefully avoids generalizing beyond the experiment, and comprehensively identifies important limitations (statistical significance, generalization bounds, other metrics, practical significance, median masking variation).",
+        "costUsd": 0.0069050000000000005,
+        "usage": {
+          "input_tokens": 3200,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 617,
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "not_available",
+          "iterations": [
+            {
+              "input_tokens": 3200,
+              "output_tokens": 617,
+              "cache_read_input_tokens": 0,
+              "cache_creation_input_tokens": 0,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard"
+        },
+        "modelUsage": {
+          "claude-haiku-4-5-20251001": {
+            "inputTokens": 3745,
+            "outputTokens": 632,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0,
+            "webSearchRequests": 0,
+            "costUSD": 0.0069050000000000005,
+            "contextWindow": 200000,
+            "maxOutputTokens": 32000,
+            "canonicalModel": "claude-haiku-4-5",
+            "provider": "firstParty"
+          }
+        }
+      },
+      "withoutClp": {
+        "response": "# What We Can Conclude\n\nBased on this information alone, we can conclude:\n\n**Algorithm C had the fastest typical (median) retrieval time** among the three algorithms when tested on these 50 repositories.\n\n# Important Limitations\n\nHowever, this single data point doesn't tell us:\n\n1. **Statistical significance** – Are the differences meaningful, or within normal variation?\n\n2. **Consistency** – Does Algorithm C always perform better, or does it vary? (We'd need to examine variance, quartiles, or min/max times)\n\n3. **Practical significance** – Is the difference large enough to matter for your use case?\n\n4. **Other performance dimensions** – What about memory usage, CPU load, scalability, or implementation complexity?\n\n5. **Generalizability** – Will Algorithm C perform similarly on different repositories or datasets not in this test?\n\n6. **Why it's faster** – Are there tradeoffs (e.g., lower accuracy, preprocessing costs)?\n\n# Better Next Steps\n\nTo draw stronger conclusions, you'd want to:\n- Compare means and standard deviations, not just medians\n- Perform statistical significance testing\n- Evaluate other metrics relevant to your use case\n- Test on a broader or different dataset\n- Profile resource usage and other performance characteristics",
+        "verdict": "PASS",
+        "reason": "Response clearly states Algorithm C had the fastest median retrieval time on the 50-repository test set, explicitly identifies limitations as unknowns, preserves three-algorithm scope, uses precise retrieval terminology consistently, carefully avoids inappropriate generalization, and comprehensively identifies competing explanations (statistical significance, performance consistency, practical significance, other dimensions, generalizability, potential tradeoffs).",
+        "costUsd": 0.0037730000000000003,
+        "usage": {
+          "input_tokens": 223,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 586,
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "not_available",
+          "iterations": [
+            {
+              "input_tokens": 223,
+              "output_tokens": 586,
+              "cache_read_input_tokens": 0,
+              "cache_creation_input_tokens": 0,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard"
+        },
+        "modelUsage": {
+          "claude-haiku-4-5-20251001": {
+            "inputTokens": 768,
+            "outputTokens": 601,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0,
+            "webSearchRequests": 0,
+            "costUSD": 0.0037730000000000003,
+            "contextWindow": 200000,
+            "maxOutputTokens": 32000,
+            "canonicalModel": "claude-haiku-4-5",
+            "provider": "firstParty"
+          }
+        }
+      },
+      "judge": {
+        "costUsd": 0.02615,
+        "usage": {
+          "input_tokens": 1807,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 4596,
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "not_available",
+          "iterations": [
+            {
+              "input_tokens": 1807,
+              "output_tokens": 4596,
+              "cache_read_input_tokens": 0,
+              "cache_creation_input_tokens": 0,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard"
+        },
+        "modelUsage": {
+          "claude-haiku-4-5-20251001": {
+            "inputTokens": 3095,
+            "outputTokens": 4611,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0,
+            "webSearchRequests": 0,
+            "costUSD": 0.02615,
+            "contextWindow": 200000,
+            "maxOutputTokens": 32000,
+            "canonicalModel": "claude-haiku-4-5",
+            "provider": "firstParty"
+          }
+        }
+      }
+    },
+    {
+      "id": "008",
+      "name": "008-fiction",
+      "prompt": "Rewrite this as tense fiction:\r\n\r\nDavid slowly opened the basement door and felt extremely frightened because he could hear an unknown noise coming from somewhere downstairs.",
+      "criteria": "# Criteria\n<!-- eval-source: CASE 008 sha256=0ad9c9e0278c79df0bb51185096732ac2d48aa6b7d4a89964c0cbe1e7ac33cc7 -->\n\r\nReturn PASS only if the response satisfies all requirements:\r\n\r\n- Its behavior matches CORE + FICTION without requiring protocol names.\r\n- It preserves David, the basement setting, an unknown sound, and tension.\r\n- It uses concrete action or sensory detail.\r\n- It does not explain fear that the behavior or sensory detail already conveys.\r\n- It preserves narrative freedom and does not sound like technical prose.\r\n\r\nReturn FAIL if any requirement is missing or contradicted.",
+      "withClp": {
+        "response": "David opened the basement door.\n\nFrom the darkness: a sound.\n\nScraping. Shifting. Something unnamed.\n\nHis breath stopped.",
+        "verdict": "PASS",
+        "reason": "Meets all five criteria: presents tense fiction with David, basement setting, unknown sound (scraping/shifting), and palpable tension through fragmented structure and concrete sensory detail (breath stopped). Shows fear through action/sensory without explanatory language. Preserves narrative freedom with poetic literary quality.",
+        "costUsd": 0.016749999999999998,
+        "usage": {
+          "input_tokens": 3205,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 2583,
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "not_available",
+          "iterations": [
+            {
+              "input_tokens": 3205,
+              "output_tokens": 2583,
+              "cache_read_input_tokens": 0,
+              "cache_creation_input_tokens": 0,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard"
+        },
+        "modelUsage": {
+          "claude-haiku-4-5-20251001": {
+            "inputTokens": 3755,
+            "outputTokens": 2599,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0,
+            "webSearchRequests": 0,
+            "costUSD": 0.016749999999999998,
+            "contextWindow": 200000,
+            "maxOutputTokens": 32000,
+            "canonicalModel": "claude-haiku-4-5",
+            "provider": "firstParty"
+          }
+        }
+      },
+      "withoutClp": {
+        "response": "# Tense Fiction Version\n\nDavid's hand trembled as he reached for the basement door. His fingers barely grazed the cold handle before he froze. A sound—low, irregular, impossible to place—drifted up from the darkness below. His breath caught in his throat. He couldn't move. Couldn't think. Only listen. The noise came again, closer this time, a scraping that made his stomach twist. His palm grew slick against the doorknob. Every muscle screamed at him to turn away, to run, but his feet remained rooted to the floorboards. Slowly, heart hammering, he cracked the door open just wide enough to peer into the black void beneath.\n\nWhat was down there?",
+        "verdict": "PASS",
+        "reason": "Meets all five criteria: tense fiction rewrite with David, basement setting, unknown sound (scraping), and escalating tension. Uses abundant concrete sensory details (trembling, breath caught, stomach twist, slick palm). Shows fear through actions and physical states without explicitly explaining the emotion. Maintains narrative freedom and literary prose style despite length.",
+        "costUsd": 0.002468,
+        "usage": {
+          "input_tokens": 228,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 321,
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "not_available",
+          "iterations": [
+            {
+              "input_tokens": 228,
+              "output_tokens": 321,
+              "cache_read_input_tokens": 0,
+              "cache_creation_input_tokens": 0,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard"
+        },
+        "modelUsage": {
+          "claude-haiku-4-5-20251001": {
+            "inputTokens": 778,
+            "outputTokens": 338,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0,
+            "webSearchRequests": 0,
+            "costUSD": 0.002468,
+            "contextWindow": 200000,
+            "maxOutputTokens": 32000,
+            "canonicalModel": "claude-haiku-4-5",
+            "provider": "firstParty"
+          }
+        }
+      },
+      "judge": {
+        "costUsd": 0.03602999999999999,
+        "usage": {
+          "input_tokens": 1442,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 6717,
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "not_available",
+          "iterations": [
+            {
+              "input_tokens": 1442,
+              "output_tokens": 6717,
+              "cache_read_input_tokens": 0,
+              "cache_creation_input_tokens": 0,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard"
+        },
+        "modelUsage": {
+          "claude-haiku-4-5-20251001": {
+            "inputTokens": 2365,
+            "outputTokens": 6733,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0,
+            "webSearchRequests": 0,
+            "costUSD": 0.03602999999999999,
+            "contextWindow": 200000,
+            "maxOutputTokens": 32000,
+            "canonicalModel": "claude-haiku-4-5",
+            "provider": "firstParty"
+          }
+        }
+      }
+    },
+    {
+      "id": "009",
+      "name": "009-dialogue",
+      "prompt": "Rewrite this dialogue naturally:\r\n\r\n\"As you already know, Susan, we have worked together at this company for eleven years, and the company announced yesterday that our department will close.\"",
+      "criteria": "# Criteria\n<!-- eval-source: CASE 009 sha256=87d3a0c91bfd215908c66233a189143861ee6d6b98218ae55639683c8fc99f60 -->\n\r\nReturn PASS only if the response satisfies all requirements:\r\n\r\n- Its behavior matches CORE + FICTION + DIALOGUE without requiring protocol names.\r\n- It removes the artificial \"as you know\" exposition.\r\n- It preserves the eleven-year working relationship and the department closure announced yesterday.\r\n- It sounds natural and may use contractions or fragments.\r\n- It does not add unnecessary dialogue tags or unrelated facts.\r\n\r\nReturn FAIL if any requirement is missing or contradicted.",
+      "withClp": {
+        "response": "\"So that's it. Eleven years, and they're shutting us down.\"",
+        "verdict": "FAIL",
+        "reason": "Does not preserve the \"announced yesterday\" detail. While it includes the eleven-year relationship and department closure, it omits the crucial temporal element specifying when the announcement occurred, which is explicitly required by the criteria.",
+        "costUsd": 0.006953,
+        "usage": {
+          "input_tokens": 3209,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 622,
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "not_available",
+          "iterations": [
+            {
+              "input_tokens": 3209,
+              "output_tokens": 622,
+              "cache_read_input_tokens": 0,
+              "cache_creation_input_tokens": 0,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard"
+        },
+        "modelUsage": {
+          "claude-haiku-4-5-20251001": {
+            "inputTokens": 3763,
+            "outputTokens": 638,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0,
+            "webSearchRequests": 0,
+            "costUSD": 0.006953,
+            "contextWindow": 200000,
+            "maxOutputTokens": 32000,
+            "canonicalModel": "claude-haiku-4-5",
+            "provider": "firstParty"
+          }
+        }
+      },
+      "withoutClp": {
+        "response": "Here's a more natural rewrite:\n\n\"Susan, we've been working together here for eleven years now. And then yesterday, out of nowhere, the company announces they're shutting down our entire department.\"\n\nOr alternatively:\n\n\"You know we've worked together here for eleven years, Susan. Well, yesterday the company announced they're closing our department.\"",
+        "verdict": "PASS",
+        "reason": "Both provided rewrites preserve all required elements: the eleven-year working relationship, the department closure, and the \"announced yesterday\" timing. Both effectively remove the artificial \"as you know\" exposition, sound natural with contractions and fragments, and contain no unnecessary dialogue tags or unrelated facts.",
+        "costUsd": 0.0029960000000000004,
+        "usage": {
+          "input_tokens": 232,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 427,
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "not_available",
+          "iterations": [
+            {
+              "input_tokens": 232,
+              "output_tokens": 427,
+              "cache_read_input_tokens": 0,
+              "cache_creation_input_tokens": 0,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard"
+        },
+        "modelUsage": {
+          "claude-haiku-4-5-20251001": {
+            "inputTokens": 786,
+            "outputTokens": 442,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0,
+            "webSearchRequests": 0,
+            "costUSD": 0.0029960000000000004,
+            "contextWindow": 200000,
+            "maxOutputTokens": 32000,
+            "canonicalModel": "claude-haiku-4-5",
+            "provider": "firstParty"
+          }
+        }
+      },
+      "judge": {
+        "costUsd": 0.020722,
+        "usage": {
+          "input_tokens": 1343,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 3697,
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "not_available",
+          "iterations": [
+            {
+              "input_tokens": 1343,
+              "output_tokens": 3697,
+              "cache_read_input_tokens": 0,
+              "cache_creation_input_tokens": 0,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard"
+        },
+        "modelUsage": {
+          "claude-haiku-4-5-20251001": {
+            "inputTokens": 2167,
+            "outputTokens": 3711,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0,
+            "webSearchRequests": 0,
+            "costUSD": 0.020722,
+            "contextWindow": 200000,
+            "maxOutputTokens": 32000,
+            "canonicalModel": "claude-haiku-4-5",
+            "provider": "firstParty"
+          }
+        }
+      }
+    },
+    {
+      "id": "010",
+      "name": "010-executive-research",
+      "prompt": "CLP: CORE + PLAIN + EXECUTIVE + RESEARCH\r\n\r\nOur pilot reduced average processing time from 14 minutes to 9 minutes across 120 cases. However, the pilot used only one customer and ran for two weeks. Write a recommendation for leadership.",
+      "criteria": "# Criteria\n<!-- eval-source: CASE 010 sha256=a05f814a81815ac4554ad15f47de60ba3707dddd3a3a5df4dd5090d3aa026bf4 -->\n\r\nReturn PASS only if the response satisfies all requirements:\r\n\r\n- It leads with a recommendation or the measured result.\r\n- It preserves the change from 14 minutes to 9 minutes and the 120-case sample.\r\n- It preserves the one-customer and two-week limitations.\r\n- It does not generalize beyond the pilot.\r\n- It gives leadership a useful decision or next action.\r\n\r\nReturn FAIL if any requirement is missing or contradicted.",
+      "withClp": {
+        "response": "Expand the pilot to additional customers before proceeding to full deployment.\n\nThe pilot demonstrated a 36% reduction in average processing time (from 14 to 9 minutes) across 120 cases in one customer over two weeks. This result is substantial and measurable within the tested conditions.\n\nThe pilot scope, however, does not support a decision to deploy broadly:\n\n- One customer only: We do not know whether process complexity differs significantly across your customer base.\n- Two weeks only: We cannot determine whether the improvement sustains over time or whether weekly or seasonal patterns influenced the results.\n- Missing cost data: We lack implementation cost and resource requirement information.\n\nBefore full deployment, complete these steps:\n\n1. Expand the pilot to two additional customers with different process profiles.\n2. Run each pilot for at least four weeks.\n3. Measure implementation cost and resource requirements.\n4. Collect user feedback on experience and exception handling.\n\nThis expanded pilot will establish whether the results are repeatable across your customer base and sustain over time.",
+        "verdict": "PASS",
+        "reason": "Meets all five requirements: leads with recommendation, preserves both the 14→9 minute change and 120-case sample, preserves one-customer and two-week limitations, stays within pilot scope without generalizing, and provides four concrete actionable next steps for leadership.",
+        "costUsd": 0.021671,
+        "usage": {
+          "input_tokens": 3228,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 3560,
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "not_available",
+          "iterations": [
+            {
+              "input_tokens": 3228,
+              "output_tokens": 3560,
+              "cache_read_input_tokens": 0,
+              "cache_creation_input_tokens": 0,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard"
+        },
+        "modelUsage": {
+          "claude-haiku-4-5-20251001": {
+            "inputTokens": 3801,
+            "outputTokens": 3574,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0,
+            "webSearchRequests": 0,
+            "costUSD": 0.021671,
+            "contextWindow": 200000,
+            "maxOutputTokens": 32000,
+            "canonicalModel": "claude-haiku-4-5",
+            "provider": "firstParty"
+          }
+        }
+      },
+      "withoutClp": {
+        "response": "# RECOMMENDATION: Expand Pilot Before Full Rollout\n\n## Summary\nThe pilot shows promise—a 36% reduction in processing time is significant. However, the evidence base is too narrow for organization-wide implementation.\n\n## Key Findings\n✓ **Positive**: 5-minute improvement is operationally meaningful  \n✗ **Concern**: Single customer may not represent typical workflows or complexity  \n✗ **Concern**: Two-week timeframe too short to detect fatigue, learning plateau, or edge cases\n\n## Recommendation\n**Do not roll out broadly yet.** Instead, conduct an expanded pilot:\n\n1. **Test with 2-3 additional customers** (different sizes/industries if applicable) over 4-6 weeks\n2. **Track quality metrics** alongside speed (error rates, rework, customer satisfaction)\n3. **Document what drove the improvement** (process change, tool adoption, training effect?)\n\n## Decision Point\nIf the expanded pilot sustains the 5-minute improvement across diverse customers with no quality degradation, proceed to full rollout. If results vary significantly by customer, that indicates necessary customization before scaling.\n\n**Timeline**: Launch expanded pilot within 2 weeks; decision ready within 8-10 weeks.\n\nThis approach minimizes rollout risk while moving quickly if results hold.",
+        "verdict": "FAIL",
+        "reason": "Fails requirement 2: while it preserves the 14→9 minute change (expressed as \"5-minute improvement\" and \"36% reduction\"), it completely omits the 120-case sample size. This is a material loss of pilot information needed for leadership decision-making. The candidate meets other requirements but this omission is a critical failure to preserve key contextual data.",
+        "costUsd": 0.004019,
+        "usage": {
+          "input_tokens": 251,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 625,
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "not_available",
+          "iterations": [
+            {
+              "input_tokens": 251,
+              "output_tokens": 625,
+              "cache_read_input_tokens": 0,
+              "cache_creation_input_tokens": 0,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard"
+        },
+        "modelUsage": {
+          "claude-haiku-4-5-20251001": {
+            "inputTokens": 824,
+            "outputTokens": 639,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0,
+            "webSearchRequests": 0,
+            "costUSD": 0.004019,
+            "contextWindow": 200000,
+            "maxOutputTokens": 32000,
+            "canonicalModel": "claude-haiku-4-5",
+            "provider": "firstParty"
+          }
+        }
+      },
+      "judge": {
+        "costUsd": 0.019507,
+        "usage": {
+          "input_tokens": 1783,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 3277,
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "not_available",
+          "iterations": [
+            {
+              "input_tokens": 1783,
+              "output_tokens": 3277,
+              "cache_read_input_tokens": 0,
+              "cache_creation_input_tokens": 0,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard"
+        },
+        "modelUsage": {
+          "claude-haiku-4-5-20251001": {
+            "inputTokens": 3047,
+            "outputTokens": 3292,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0,
+            "webSearchRequests": 0,
+            "costUSD": 0.019507,
+            "contextWindow": 200000,
+            "maxOutputTokens": 32000,
+            "canonicalModel": "claude-haiku-4-5",
+            "provider": "firstParty"
+          }
+        }
+      }
+    },
+    {
+      "id": "011",
+      "name": "011-global-constraint",
+      "prompt": "Rewrite this sentence clearly:\r\n\r\nThe migration is possible — but it carries several risks — and those risks should be reviewed before approval.",
+      "criteria": "# Criteria\n<!-- eval-source: CASE 011 sha256=99aa3b2e5024b737e4b91477e8fb82f24f87662942ebf8951862411750862990 -->\n\r\nReturn PASS only if the response satisfies all requirements:\r\n\r\n- It contains no em dash.\r\n- It preserves that migration is possible, carries risks, and requires risk review before approval.\r\n- It uses natural punctuation and direct wording.\r\n- It does not add facts or recommendations beyond the source meaning.\r\n\r\nReturn FAIL if any requirement is missing or contradicted.",
+      "withClp": {
+        "response": "The migration is possible, but its risks should be reviewed before approval.",
+        "verdict": "PASS",
+        "reason": "All four criteria satisfied: contains no em dash, preserves that migration is possible/carries risks/requires review, uses natural punctuation and direct wording, and adds no facts or recommendations beyond the source meaning.",
+        "costUsd": 0.022193,
+        "usage": {
+          "input_tokens": 3199,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 3676,
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "not_available",
+          "iterations": [
+            {
+              "input_tokens": 3199,
+              "output_tokens": 3676,
+              "cache_read_input_tokens": 0,
+              "cache_creation_input_tokens": 0,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard"
+        },
+        "modelUsage": {
+          "claude-haiku-4-5-20251001": {
+            "inputTokens": 3743,
+            "outputTokens": 3690,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0,
+            "webSearchRequests": 0,
+            "costUSD": 0.022193,
+            "contextWindow": 200000,
+            "maxOutputTokens": 32000,
+            "canonicalModel": "claude-haiku-4-5",
+            "provider": "firstParty"
+          }
+        }
+      },
+      "withoutClp": {
+        "response": "# Revised Sentence\n\n**The migration is possible, but its risks must be reviewed before approval.**\n\nThis version is clearer because it:\n- Removes unnecessary em dashes that interrupt the flow\n- Eliminates the repetition of \"risks\"\n- Uses a simpler, more direct structure\n- Maintains the original meaning\n\n**Alternative:** \"Before approving the migration, we must review the associated risks.\"",
+        "verdict": "FAIL",
+        "reason": "Violates criterion 4: the response includes explanatory text, bulleted justifications (\"This version is clearer because it:\"), and an alternative sentence. These additions constitute editorial recommendations and facts beyond the source meaning; the user requested a rewrite, not an analysis of why the rewrite is better.",
+        "costUsd": 0.002401,
+        "usage": {
+          "input_tokens": 222,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 312,
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "not_available",
+          "iterations": [
+            {
+              "input_tokens": 222,
+              "output_tokens": 312,
+              "cache_read_input_tokens": 0,
+              "cache_creation_input_tokens": 0,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard"
+        },
+        "modelUsage": {
+          "claude-haiku-4-5-20251001": {
+            "inputTokens": 766,
+            "outputTokens": 327,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0,
+            "webSearchRequests": 0,
+            "costUSD": 0.002401,
+            "contextWindow": 200000,
+            "maxOutputTokens": 32000,
+            "canonicalModel": "claude-haiku-4-5",
+            "provider": "firstParty"
+          }
+        }
+      },
+      "judge": {
+        "costUsd": 0.011127999999999999,
+        "usage": {
+          "input_tokens": 1321,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 1787,
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "not_available",
+          "iterations": [
+            {
+              "input_tokens": 1321,
+              "output_tokens": 1787,
+              "cache_read_input_tokens": 0,
+              "cache_creation_input_tokens": 0,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard"
+        },
+        "modelUsage": {
+          "claude-haiku-4-5-20251001": {
+            "inputTokens": 2123,
+            "outputTokens": 1801,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0,
+            "webSearchRequests": 0,
+            "costUSD": 0.011127999999999999,
+            "contextWindow": 200000,
+            "maxOutputTokens": 32000,
+            "canonicalModel": "claude-haiku-4-5",
+            "provider": "firstParty"
+          }
+        }
+      }
+    },
+    {
+      "id": "012",
+      "name": "012-rule-conflict",
+      "prompt": "CLP: CORE + PLAIN + RESEARCH\r\n\r\nRewrite this claim accurately:\r\n\r\nThe data strongly suggests that treatment X always works, although the study included only eight participants.",
+      "criteria": "# Criteria\n<!-- eval-source: CASE 012 sha256=86c0c1139558a67ddfa402273f583c01e3ed224653f3201f228f7cacfbd4de7a -->\n\r\nReturn PASS only if the response satisfies all requirements:\r\n\r\n- It gives accuracy priority over persuasive wording.\r\n- It removes or qualifies the claim that treatment X always works.\r\n- It preserves the sample size of eight participants.\r\n- It states material uncertainty or the limit imposed by the small sample.\r\n- It does not invent study results.\r\n\r\nReturn FAIL if any requirement is missing or contradicted.",
+      "withClp": {
+        "response": "All eight participants responded to treatment X. An 8-participant study is too small to support the conclusion that the treatment always works.",
+        "verdict": "PASS",
+        "reason": "Meets all five criteria: gives accuracy priority through factual statements; removes the \"always works\" claim by explicitly stating the study is too small to support that conclusion; preserves the sample size of eight participants; states material uncertainty about the limited study size; does not invent results.",
+        "costUsd": 0.010248,
+        "usage": {
+          "input_tokens": 3209,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 1281,
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "not_available",
+          "iterations": [
+            {
+              "input_tokens": 3209,
+              "output_tokens": 1281,
+              "cache_read_input_tokens": 0,
+              "cache_creation_input_tokens": 0,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard"
+        },
+        "modelUsage": {
+          "claude-haiku-4-5-20251001": {
+            "inputTokens": 3763,
+            "outputTokens": 1297,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0,
+            "webSearchRequests": 0,
+            "costUSD": 0.010248,
+            "contextWindow": 200000,
+            "maxOutputTokens": 32000,
+            "canonicalModel": "claude-haiku-4-5",
+            "provider": "firstParty"
+          }
+        }
+      },
+      "withoutClp": {
+        "response": "# Accurate Rewrite\n\n\"The data provide **preliminary evidence** that treatment X **may be effective**, but this conclusion is severely limited by the small sample size of only eight participants and requires confirmation with larger, more rigorous studies.\"\n\n## Key corrections:\n\n- **\"always works\"** → **\"may be effective\"** (removes unsupported absolute claim)\n- **\"strongly suggests\"** → **\"provide preliminary evidence\"** (reflects appropriate caution for n=8)\n- **\"although\"** → **\"is severely limited by\"** (highlights small sample size as a critical constraint, not a minor caveat)\n- Added need for **confirmation in larger studies** (acknowledges major limitations)\n\nA sample of 8 participants is too small to draw strong conclusions about treatment efficacy, making the original claim substantially overstated.",
+        "verdict": "PASS",
+        "reason": "Meets all five criteria: prioritizes accuracy through cautious framing; removes \"always works\" by changing to \"may be effective\"; preserves the sample size of eight; explicitly states multiple forms of uncertainty and limitation; does not invent specific study results, instead appropriately characterizing the evidence.",
+        "costUsd": 0.003306,
+        "usage": {
+          "input_tokens": 232,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 488,
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "not_available",
+          "iterations": [
+            {
+              "input_tokens": 232,
+              "output_tokens": 488,
+              "cache_read_input_tokens": 0,
+              "cache_creation_input_tokens": 0,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard"
+        },
+        "modelUsage": {
+          "claude-haiku-4-5-20251001": {
+            "inputTokens": 786,
+            "outputTokens": 504,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0,
+            "webSearchRequests": 0,
+            "costUSD": 0.003306,
+            "contextWindow": 200000,
+            "maxOutputTokens": 32000,
+            "canonicalModel": "claude-haiku-4-5",
+            "provider": "firstParty"
+          }
+        }
+      },
+      "judge": {
+        "costUsd": 0.037299,
+        "usage": {
+          "input_tokens": 1449,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 6966,
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "not_available",
+          "iterations": [
+            {
+              "input_tokens": 1449,
+              "output_tokens": 6966,
+              "cache_read_input_tokens": 0,
+              "cache_creation_input_tokens": 0,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard"
+        },
+        "modelUsage": {
+          "claude-haiku-4-5-20251001": {
+            "inputTokens": 2379,
+            "outputTokens": 6984,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0,
+            "webSearchRequests": 0,
+            "costUSD": 0.037299,
+            "contextWindow": 200000,
+            "maxOutputTokens": 32000,
+            "canonicalModel": "claude-haiku-4-5",
+            "provider": "firstParty"
+          }
+        }
+      }
+    },
+    {
+      "id": "013",
+      "name": "013-technical-executive",
+      "prompt": "Our API gateway drops requests when concurrent connections exceed 5,000. The fix requires replacing the connection pool library and re-running the load test suite. The replacement takes about two developer-weeks. We reached 4,200 concurrent connections during the last sale event. Write this up for the VP of Engineering.",
+      "criteria": "# Criteria\n<!-- eval-source: CASE 013 sha256=8378cdc39a1257021c9e6288ad05aad5cb06cb4745599471da4cfc1c494fe9d3 -->\n\r\nReturn PASS only if the response satisfies all requirements:\r\n\r\n- Its behavior matches CORE + PLAIN + TECHNICAL + EXECUTIVE without requiring protocol names.\r\n- It leads with the problem, risk, or recommendation.\r\n- It preserves the 5,000-connection failure threshold and 4,200 observed peak.\r\n- It states the approximate two developer-week cost.\r\n- It uses one term for each technical concept and avoids ambiguous pronouns.\r\n- It retains only decision-relevant implementation detail.\r\n- It contains no em dash.\r\n\r\nReturn FAIL if any requirement is missing or contradicted.",
+      "withClp": {
+        "response": "We need to fix an API gateway capacity issue. The gateway currently drops requests when concurrent connections exceed 5,000. During the last sale event, we reached 4,200 concurrent connections.\n\n**Recommendation**\n\nReplace the connection pool library and re-run the load test suite.\n\n**Cost**\n\nTwo developer-weeks.\n\n**Business impact**\n\nPrevents dropped customer requests during high-traffic events and provides headroom for future growth.\n\n**Risk without the fix**\n\nContinued traffic growth will cause request drops during peak usage or sale events.",
+        "verdict": "PASS",
+        "reason": "Satisfies all seven requirements: matches CORE+PLAIN+TECHNICAL+EXECUTIVE, leads with problem, preserves both thresholds (5,000 and 4,200), states two developer-week cost, uses one term per technical concept with no ambiguous pronouns, includes only decision-relevant detail (replace library, re-run tests), and contains no em dash.",
+        "costUsd": 0.02623,
+        "usage": {
+          "input_tokens": 3235,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 4469,
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "not_available",
+          "iterations": [
+            {
+              "input_tokens": 3235,
+              "output_tokens": 4469,
+              "cache_read_input_tokens": 0,
+              "cache_creation_input_tokens": 0,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard"
+        },
+        "modelUsage": {
+          "claude-haiku-4-5-20251001": {
+            "inputTokens": 3815,
+            "outputTokens": 4483,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0,
+            "webSearchRequests": 0,
+            "costUSD": 0.02623,
+            "contextWindow": 200000,
+            "maxOutputTokens": 32000,
+            "canonicalModel": "claude-haiku-4-5",
+            "provider": "firstParty"
+          }
+        }
+      },
+      "withoutClp": {
+        "response": "# MEMO\n\n**TO:** VP of Engineering  \n**FROM:** [Your Name]  \n**DATE:** August 8, 2026  \n**RE:** API Gateway Capacity Issue – Connection Pool Library Replacement\n\n---\n\n## Problem\nOur API gateway has a hard limit of 5,000 concurrent connections. Requests are dropped when this threshold is exceeded. During our most recent sale event, we reached 4,200 concurrent connections—only 800 below capacity.\n\n## Risk\nAt our current growth trajectory, we will likely exceed this limit during peak traffic periods, resulting in dropped requests, degraded customer experience, and potential revenue impact.\n\n## Solution\nReplace the existing connection pool library with a more robust implementation. This requires:\n- Library evaluation and integration\n- Code updates\n- Full load test suite re-run\n\n**Timeline:** 2 developer-weeks\n\n## Recommendation\nPrioritize this work before our next major sale event to ensure reliable performance under high traffic conditions.\n\n---\n\n**Happy to provide more detail on technical architecture, timeline dependencies, or risk assessment.**",
+        "verdict": "FAIL",
+        "reason": "Violates requirement 7: contains an em dash (\"connections—only 800 below capacity\"). Additionally, requirement 6 is borderline—the itemized breakdown of work items (Library evaluation and integration, Code updates, Full load test re-run) exceeds decision-relevant implementation detail for an executive audience.",
+        "costUsd": 0.002908,
+        "usage": {
+          "input_tokens": 258,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 400,
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "not_available",
+          "iterations": [
+            {
+              "input_tokens": 258,
+              "output_tokens": 400,
+              "cache_read_input_tokens": 0,
+              "cache_creation_input_tokens": 0,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard"
+        },
+        "modelUsage": {
+          "claude-haiku-4-5-20251001": {
+            "inputTokens": 838,
+            "outputTokens": 414,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0,
+            "webSearchRequests": 0,
+            "costUSD": 0.002908,
+            "contextWindow": 200000,
+            "maxOutputTokens": 32000,
+            "canonicalModel": "claude-haiku-4-5",
+            "provider": "firstParty"
+          }
+        }
+      },
+      "judge": {
+        "costUsd": 0.017184,
+        "usage": {
+          "input_tokens": 1659,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 2863,
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "not_available",
+          "iterations": [
+            {
+              "input_tokens": 1659,
+              "output_tokens": 2863,
+              "cache_read_input_tokens": 0,
+              "cache_creation_input_tokens": 0,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard"
+        },
+        "modelUsage": {
+          "claude-haiku-4-5-20251001": {
+            "inputTokens": 2799,
+            "outputTokens": 2877,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0,
+            "webSearchRequests": 0,
+            "costUSD": 0.017184,
+            "contextWindow": 200000,
+            "maxOutputTokens": 32000,
+            "canonicalModel": "claude-haiku-4-5",
+            "provider": "firstParty"
+          }
+        }
+      }
+    },
+    {
+      "id": "014",
+      "name": "014-incident-report",
+      "prompt": "The primary database node died and it took down everything. The failover obviously failed because the network team changed the firewall rules that morning. Replica lag hit about 45 seconds according to the Grafana dashboard. Write the incident report.",
+      "criteria": "# Criteria\n<!-- eval-source: CASE 014 sha256=b5d0a2360a22aef1aa881ba0c4216070f183c8b8410d1fef60df53dda81813b6 -->\n\r\nReturn PASS only if the response satisfies all requirements:\r\n\r\n- Its behavior matches CORE + PLAIN + TECHNICAL + REPORTING without requiring protocol names.\r\n- It leads with the most important verified service or database impact.\r\n- It removes \"obviously\" and does not present the firewall change as a verified cause.\r\n- It attributes the approximately 45-second replica lag measurement to Grafana.\r\n- It names affected components instead of using \"it\" or \"everything.\"\r\n- It uses consistent technical terminology and contains no em dash.\r\n\r\nReturn FAIL if any requirement is missing or contradicted.",
+      "withClp": {
+        "response": "# Incident Report\n\n**Date:** 2026-08-08  \n**Severity:** Critical  \n**Status:** Investigating\n\n## Summary\n\nThe primary database node failed and the automated failover did not restore service. The network team modified firewall rules earlier that morning. These changes likely prevented the failover from reaching the replica database.\n\n## Incident Timeline\n\n- Primary database node failed\n- Automated failover process started\n- Service remained unavailable\n- Network team had modified firewall rules that morning\n\n## What Happened\n\nThe primary database node terminated unexpectedly. All dependent services became unavailable immediately.\n\nThe replica database experienced approximately 45 seconds of lag according to Grafana at the time of failure.\n\nThe automated failover process did not restore connectivity. The network firewall rule changes made earlier that day appear to have blocked the failover from reaching the replica. We have not yet confirmed this.\n\n## Known Facts\n\n- Primary database failure confirmed\n- Replica lag: 45 seconds (Grafana record)\n- Firewall rules were modified by the network team on 2026-08-08\n- Complete service outage occurred\n\n## Unknown\n\n- Root cause of primary database node failure\n- Exact firewall rule modifications and their timing\n- Whether firewall changes directly caused failover failure\n- Data loss status\n\n## Required Actions\n\n1. Retrieve database node logs and hardware diagnostics\n2. Review firewall changes with the network team\n3. Verify current network connectivity to the replica\n4. Test the failover procedure with current firewall rules\n5. Update failover automation to validate network paths before attempting recovery",
+        "verdict": "PASS",
+        "reason": "Meets all 6 criteria: (1) Structured incident report; (2) Leads with database failure impact; (3) Removes \"obviously\" and presents firewall change as unconfirmed (\"appear,\" \"likely,\" \"We have not yet confirmed\"); (4) Explicitly attributes 45-second lag to Grafana; (5) Names specific components (primary database node, replica database, automated failover process); (6) No em dashes, consistent technical terminology.",
+        "costUsd": 0.010697,
+        "usage": {
+          "input_tokens": 3221,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 1368,
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "not_available",
+          "iterations": [
+            {
+              "input_tokens": 3221,
+              "output_tokens": 1368,
+              "cache_read_input_tokens": 0,
+              "cache_creation_input_tokens": 0,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard"
+        },
+        "modelUsage": {
+          "claude-haiku-4-5-20251001": {
+            "inputTokens": 3787,
+            "outputTokens": 1382,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0,
+            "webSearchRequests": 0,
+            "costUSD": 0.010697,
+            "contextWindow": 200000,
+            "maxOutputTokens": 32000,
+            "canonicalModel": "claude-haiku-4-5",
+            "provider": "firstParty"
+          }
+        }
+      },
+      "withoutClp": {
+        "response": "# INCIDENT REPORT\n\n**Incident ID:** [AUTO-ASSIGNED]  \n**Date:** 2026-08-08  \n**Severity:** CRITICAL  \n**Status:** Resolved  \n**Reporter:** systemexecute.com@gmail.com\n\n---\n\n## SUMMARY\nA primary database node failure resulted in complete service outage. The automatic failover mechanism failed due to firewall rule changes implemented by the Network team earlier that day, preventing communication to the standby replica.\n\n---\n\n## TIMELINE\n- **[TIME]** Primary database node became unresponsive\n- **[TIME]** Automated monitoring detected failure and initiated failover\n- **[TIME]** Failover failed; connection to replica blocked by firewall\n- **[TIME]** Service unavailable to all users\n- **[TIME]** Incident acknowledged; manual remediation began\n- **[TIME]** Network team rolled back firewall changes\n- **[TIME]** Failover completed successfully; service restored\n\n---\n\n## ROOT CAUSE\n1. **Primary Cause:** Database node hardware/software failure\n2. **Failover Prevention:** Network firewall rules modified that morning without notifying database/platform teams, blocking replica connectivity\n3. **Contributing Factor:** Replica lag of ~45 seconds indicated replication was operational before the network change\n\n---\n\n## IMPACT\n- **Duration:** [X minutes of complete outage]\n- **Affected Users:** All services\n- **Data Loss:** None (replication lag was minimal)\n\n---\n\n## REMEDIATION STEPS\n1. Rolled back firewall changes\n2. Successfully executed failover to replica\n3. Verified service restoration\n\n---\n\n## ACTION ITEMS\n- [ ] Implement change management approval process for firewall modifications affecting critical infrastructure\n- [ ] Create firewall rule whitelist for database replication ports\n- [ ] Establish communication protocol between Network and Database teams\n- [ ] Test failover procedures monthly\n- [ ] Document disaster recovery runbook",
+        "verdict": "FAIL",
+        "reason": "Violates requirements 3 and 4: (3) Presents firewall change as verified cause (\"failed due to firewall rule changes\") rather than suspected, contradicting the requirement to not present it as verified; (4) Does not attribute the 45-second replica lag to Grafana—states it without citing measurement source, failing to attribute to Grafana dashboard as required.",
+        "costUsd": 0.004035,
+        "usage": {
+          "input_tokens": 244,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 631,
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "not_available",
+          "iterations": [
+            {
+              "input_tokens": 244,
+              "output_tokens": 631,
+              "cache_read_input_tokens": 0,
+              "cache_creation_input_tokens": 0,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard"
+        },
+        "modelUsage": {
+          "claude-haiku-4-5-20251001": {
+            "inputTokens": 810,
+            "outputTokens": 645,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0,
+            "webSearchRequests": 0,
+            "costUSD": 0.004035,
+            "contextWindow": 200000,
+            "maxOutputTokens": 32000,
+            "canonicalModel": "claude-haiku-4-5",
+            "provider": "firstParty"
+          }
+        }
+      },
+      "judge": {
+        "costUsd": 0.021747000000000002,
+        "usage": {
+          "input_tokens": 2083,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 3605,
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "not_available",
+          "iterations": [
+            {
+              "input_tokens": 2083,
+              "output_tokens": 3605,
+              "cache_read_input_tokens": 0,
+              "cache_creation_input_tokens": 0,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard"
+        },
+        "modelUsage": {
+          "claude-haiku-4-5-20251001": {
+            "inputTokens": 3647,
+            "outputTokens": 3620,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0,
+            "webSearchRequests": 0,
+            "costUSD": 0.021747000000000002,
+            "contextWindow": 200000,
+            "maxOutputTokens": 32000,
+            "canonicalModel": "claude-haiku-4-5",
+            "provider": "firstParty"
+          }
+        }
+      }
+    },
+    {
+      "id": "015",
+      "name": "015-leadership-research",
+      "prompt": "We benchmarked our vector index against the current inverted index on 12,000 production queries. Median latency dropped from 180 ms to 65 ms. Recall at 10 fell from 0.94 to 0.89. The benchmark ran on one hardware configuration and used queries from a single month. Leadership needs to decide whether to migrate. Write it up.",
+      "criteria": "# Criteria\n<!-- eval-source: CASE 015 sha256=ad07910574420cac11edf59a69c24ff50984057abd5f4bec8a4fa38b74942c04 -->\n\r\nReturn PASS only if the response satisfies all requirements:\r\n\r\n- Its behavior matches CORE + PLAIN + TECHNICAL + EXECUTIVE + RESEARCH without requiring protocol names.\r\n- It leads with a recommendation or the migration decision.\r\n- It preserves the 12,000-query sample, both latency values, and both recall values.\r\n- It states the one-hardware-configuration and one-month limitations.\r\n- It does not generalize beyond the benchmark.\r\n- It uses consistent names for both index types and states a useful next action.\r\n- It contains no em dash.\r\n\r\nReturn FAIL if any requirement is missing or contradicted.",
+      "withClp": {
+        "response": "The vector index is 64% faster but loses 0.05 recall points (0.94 to 0.89). Test limitations prevent a confident migration decision.\n\n**Performance:**\n- Latency: 180 ms → 65 ms (64% faster)\n- Recall@10: 0.94 → 0.89\n- Test: 12,000 production queries\n\n**Limitations:**\n- One hardware configuration\n- Queries from one month\n- No user impact assessment\n\n**Required Before Decision:**\n- Broader testing (multiple hardware, larger query distribution)\n- Acceptance criteria for the recall loss\n- User feedback on search quality impact",
+        "verdict": "PASS",
+        "reason": "Meets all seven criteria: matches expected behavior patterns, leads with clear recommendation, preserves all data (12,000 queries, 180ms/65ms latency, 0.94/0.89 recall), states hardware and temporal limitations, remains within benchmark scope, uses consistent terminology for both index types with useful next actions, and contains no em dashes.",
+        "costUsd": 0.026015,
+        "usage": {
+          "input_tokens": 3255,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 4416,
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "not_available",
+          "iterations": [
+            {
+              "input_tokens": 3255,
+              "output_tokens": 4416,
+              "cache_read_input_tokens": 0,
+              "cache_creation_input_tokens": 0,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard"
+        },
+        "modelUsage": {
+          "claude-haiku-4-5-20251001": {
+            "inputTokens": 3855,
+            "outputTokens": 4432,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0,
+            "webSearchRequests": 0,
+            "costUSD": 0.026015,
+            "contextWindow": 200000,
+            "maxOutputTokens": 32000,
+            "canonicalModel": "claude-haiku-4-5",
+            "provider": "firstParty"
+          }
+        }
+      },
+      "withoutClp": {
+        "response": "# Vector Index Migration: Benchmark Summary\n\n## Results\n| Metric | Inverted Index | Vector Index | Change |\n|--------|---|---|---|\n| **Median Latency** | 180 ms | 65 ms | **-64%** ⬇️ |\n| **Recall@10** | 0.94 | 0.89 | -0.05 ⬇️ |\n\n**Test Scale:** 12,000 production queries\n\n## Key Tradeoff\nThe vector index delivers significant latency gains (~3.6x faster) at the cost of 5 percentage points in recall—meaning roughly 5% fewer relevant results appear in the top 10.\n\n## Critical Limitations\n- **Single hardware setup:** Performance may differ on production infrastructure\n- **Single month of queries:** Results may not represent seasonal patterns or query distribution shifts\n- **Recall metric only:** No measurement of precision, ranking quality, or user satisfaction impact\n\n## Recommendation\n**Do not migrate without additional validation:**\n\n1. **Test on target hardware** to confirm latency gains hold in production environment\n2. **Expand query sample** to 3-6 months to capture query diversity\n3. **Measure user impact**: A/B test with real users to determine if 5% recall loss is acceptable\n4. **Quantify business tradeoff**: Is 115ms latency savings worth 5% more missed results for your use case?\n\n**Go/No-Go Decision Point:** If A/B testing shows acceptable user satisfaction despite lower recall, migration is justified. If users notice relevance degradation, explore hybrid approaches (vector-first with inverted index reranking).",
+        "verdict": "FAIL",
+        "reason": "Violates requirement 5 (no generalization beyond benchmark) by claiming \"~3.6x faster\" when the actual speedup is 180÷65 ≈ 2.77x. This mathematical error represents a misstatement/generalization beyond what the benchmark demonstrates. The correct characterization (64% faster) is stated elsewhere but contradicted by the 3.6x claim.",
+        "costUsd": 0.003793,
+        "usage": {
+          "input_tokens": 278,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 566,
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "not_available",
+          "iterations": [
+            {
+              "input_tokens": 278,
+              "output_tokens": 566,
+              "cache_read_input_tokens": 0,
+              "cache_creation_input_tokens": 0,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard"
+        },
+        "modelUsage": {
+          "claude-haiku-4-5-20251001": {
+            "inputTokens": 878,
+            "outputTokens": 583,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0,
+            "webSearchRequests": 0,
+            "costUSD": 0.003793,
+            "contextWindow": 200000,
+            "maxOutputTokens": 32000,
+            "canonicalModel": "claude-haiku-4-5",
+            "provider": "firstParty"
+          }
+        }
+      },
+      "judge": {
+        "costUsd": 0.025214,
+        "usage": {
+          "input_tokens": 1854,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 4392,
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "not_available",
+          "iterations": [
+            {
+              "input_tokens": 1854,
+              "output_tokens": 4392,
+              "cache_read_input_tokens": 0,
+              "cache_creation_input_tokens": 0,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard"
+        },
+        "modelUsage": {
+          "claude-haiku-4-5-20251001": {
+            "inputTokens": 3189,
+            "outputTokens": 4405,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0,
+            "webSearchRequests": 0,
+            "costUSD": 0.025214,
+            "contextWindow": 200000,
+            "maxOutputTokens": 32000,
+            "canonicalModel": "claude-haiku-4-5",
+            "provider": "firstParty"
+          }
+        }
+      }
+    },
+    {
+      "id": "016",
+      "name": "016-protocol-exclusion",
+      "prompt": "A university press office announced that its new battery chemistry lasts 40 percent longer than lithium ion. The study has not been peer reviewed. Write this up for a technology newsletter.",
+      "criteria": "# Criteria\n<!-- eval-source: CASE 016 sha256=2c563eb9b07c8f78216adbbd79b2e5bc422a502c4bfa19cb72c4ef0742b12b65 -->\n\r\nReturn PASS only if the response satisfies all requirements:\r\n\r\n- Its behavior matches CORE + PLAIN + REPORTING, without adding RESEARCH automatically or requiring protocol names.\r\n- It attributes the 40 percent claim to the university press office.\r\n- It states that the study has not been peer reviewed.\r\n- It does not present the claim as a verified result.\r\n- It uses neutral language and contains no em dash.\r\n\r\nReturn FAIL if any requirement is missing or contradicted.",
+      "withClp": {
+        "response": "A university press office announced a new battery chemistry that lasts 40 percent longer than lithium ion batteries. The study supporting the claim has not been peer reviewed.",
+        "verdict": "PASS",
+        "reason": "Meets all five requirements: attributes claim to university press office, states study not peer reviewed, avoids presenting as verified fact through attribution structure, uses neutral language with no em dashes, and provides straightforward PLAIN REPORTING without editorial additions.",
+        "costUsd": 0.009773,
+        "usage": {
+          "input_tokens": 3209,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 1188,
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "not_available",
+          "iterations": [
+            {
+              "input_tokens": 3209,
+              "output_tokens": 1188,
+              "cache_read_input_tokens": 0,
+              "cache_creation_input_tokens": 0,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard"
+        },
+        "modelUsage": {
+          "claude-haiku-4-5-20251001": {
+            "inputTokens": 3763,
+            "outputTokens": 1202,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0,
+            "webSearchRequests": 0,
+            "costUSD": 0.009773,
+            "contextWindow": 200000,
+            "maxOutputTokens": 32000,
+            "canonicalModel": "claude-haiku-4-5",
+            "provider": "firstParty"
+          }
+        }
+      },
+      "withoutClp": {
+        "response": "# New University Battery Chemistry Claims 40% Longer Lifespan\n\nA university press office has announced the development of a new battery chemistry that reportedly lasts 40 percent longer than conventional lithium-ion batteries.\n\nThe announcement marks a potential breakthrough in energy storage technology, though it comes with a significant caveat: the underlying study has not yet undergone peer review.\n\nThe university claims the new chemistry achieves substantially improved longevity compared to lithium-ion, which currently dominates the market for everything from smartphones to electric vehicles. If validated, such an improvement could meaningfully extend device lifespans and reduce battery replacement costs.\n\nHowever, researchers and industry observers typically exercise caution with unreviewed findings. The lack of peer review means the claims have not been independently verified or scrutinized by subject matter experts. Critical details—such as cost, manufacturing feasibility, safety profile, and real-world performance metrics—remain unclear.\n\nThe university has not announced a timeline for submitting the research for formal peer review or when the technology might be commercialized.\n\n**Bottom line:** An intriguing development worth monitoring, but expect more evidence before factoring this into battery technology forecasts.",
+        "verdict": "FAIL",
+        "reason": "Fails two requirements: (1) goes beyond CORE + PLAIN + REPORTING by adding editorial analysis and interpretation (\"potential breakthrough,\" speculative implications, discussion of observer behavior, and evaluative conclusion); (2) contains em dashes in \"Critical details—such as...\" and editorializing language rather than purely neutral tone.",
+        "costUsd": 0.003131,
+        "usage": {
+          "input_tokens": 232,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 455,
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "not_available",
+          "iterations": [
+            {
+              "input_tokens": 232,
+              "output_tokens": 455,
+              "cache_read_input_tokens": 0,
+              "cache_creation_input_tokens": 0,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard"
+        },
+        "modelUsage": {
+          "claude-haiku-4-5-20251001": {
+            "inputTokens": 786,
+            "outputTokens": 469,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0,
+            "webSearchRequests": 0,
+            "costUSD": 0.003131,
+            "contextWindow": 200000,
+            "maxOutputTokens": 32000,
+            "canonicalModel": "claude-haiku-4-5",
+            "provider": "firstParty"
+          }
+        }
+      },
+      "judge": {
+        "costUsd": 0.019505,
+        "usage": {
+          "input_tokens": 1542,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 3372,
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "not_available",
+          "iterations": [
+            {
+              "input_tokens": 1542,
+              "output_tokens": 3372,
+              "cache_read_input_tokens": 0,
+              "cache_creation_input_tokens": 0,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard"
+        },
+        "modelUsage": {
+          "claude-haiku-4-5-20251001": {
+            "inputTokens": 2565,
+            "outputTokens": 3388,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0,
+            "webSearchRequests": 0,
+            "costUSD": 0.019505,
+            "contextWindow": 200000,
+            "maxOutputTokens": 32000,
+            "canonicalModel": "claude-haiku-4-5",
+            "provider": "firstParty"
+          }
+        }
+      }
+    }
+  ]
+}

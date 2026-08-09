@@ -49,6 +49,49 @@ function stripExamples(section) {
   return section.body.split(/\r?\nBEFORE:\r?\n/)[0].trim();
 }
 
+function stripCompositionExamples(body) {
+  const lines = body.split(/\r?\n/);
+  const kept = [];
+
+  for (let index = 0; index < lines.length;) {
+    if (lines[index].trim() !== 'Example:') {
+      kept.push(lines[index]);
+      index++;
+      continue;
+    }
+
+    let cursor = index + 1;
+    while (cursor < lines.length && lines[cursor].trim() === '') cursor++;
+
+    const protocolSet = /^[A-Z]+(?:\s*\+\s*[A-Z]+)+$/;
+    if (cursor >= lines.length || !protocolSet.test(lines[cursor].trim())) {
+      kept.push(lines[index]);
+      index++;
+      continue;
+    }
+
+    cursor++;
+    while (cursor < lines.length && lines[cursor].trim() === '') cursor++;
+
+    let controlLines = 0;
+    while (cursor < lines.length && /^[A-Z]+ controls\b/.test(lines[cursor].trim())) {
+      controlLines++;
+      cursor++;
+      while (cursor < lines.length && lines[cursor].trim() === '') cursor++;
+    }
+
+    if (controlLines === 0) {
+      kept.push(lines[index]);
+      index++;
+      continue;
+    }
+
+    index = cursor;
+  }
+
+  return kept.join('\n').replace(/\n{3,}/g, '\n\n').trim();
+}
+
 function operationalBody(section) {
   if (section.number >= 4 && section.number <= 12) {
     return stripExamples(section);
@@ -56,10 +99,7 @@ function operationalBody(section) {
   if (section.number === 13) {
     // Section 13 restates protocol ownership in several composition examples.
     // Keep its rules and conflict guidance, but remove those repeated summaries.
-    return section.body.replace(
-      /Example:\s*\r?\n+[A-Z +]+\s*\r?\n+(?:(?:[A-Z]+ controls[^\r\n]*\r?\n+)+)/g,
-      ''
-    ).trim();
+    return stripCompositionExamples(section.body);
   }
   return section.body;
 }
@@ -76,7 +116,8 @@ function readGlobalRules(sections) {
 function buildOperationalContext(sections) {
   const operational = sections
     .map(section => `${section.title}\n${operationalBody(section)}`)
-    .join('\n\n');
+    .join('\n\n')
+    .replace(/\r\n/g, '\n');
 
   const context =
     'CLP OPERATIONAL SPECIFICATION. Derived from CLP.txt at run time. ' +

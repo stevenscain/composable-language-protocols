@@ -14,6 +14,9 @@ This file records notable changes to Composable Language Protocols.
 - Added executable Claude model evaluations and graders for all sixteen cases.
 - Added a cost-capped model-evaluation runner.
 - Added a release checklist.
+- Added model-evaluation alignment fingerprints and mutation tests.
+- Added a cost-capped standard CLI fallback for baseline evaluations.
+- Recorded the first fallback baseline: 14/16 with CLP and 6/16 without CLP.
 
 ### Changed
 
@@ -26,3 +29,5 @@ This file records notable changes to Composable Language Protocols.
   automatic-exclusion declarations.
 - Expanded documentation and case studies for the nine protocols and both
   plugin environments.
+- Reduced operational hook context below the direct-injection limit and added
+  regression checks for composition compaction.

@@ -24,7 +24,9 @@ node --check evals/check-compatibility.js
 node --check evals/check-compatibility-tests.js
 node --check evals/check-hook.js
 node --check evals/check-model-evals.js
+node --check evals/check-model-evals-tests.js
 node --check evals/check-packaging.js
+node --check evals/run-cli-baseline.js
 node --check evals/run-model-evals.js
 node --check hooks/clp-context.js
 node --check hooks/clp-context-codex.js
@@ -33,6 +35,7 @@ node evals/check-compatibility-tests.js
 node evals/check-hook.js
 node evals/check-packaging.js
 node evals/check-model-evals.js
+node evals/check-model-evals-tests.js
 ```
 
 Validate the Claude manifests when the Claude CLI is available:

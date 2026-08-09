@@ -70,6 +70,10 @@ try {
   assert.match(startup, /3\. PROTOCOL SELECTION/);
   assert.match(startup, /14\. FINAL CHECK/);
   assert.doesNotMatch(startup, /\r?\nBEFORE:\r?\n/);
+  assert.doesNotMatch(startup, /\r/);
+  assert.doesNotMatch(startup, /\bExample:/);
+  assert.match(startup, /TECHNICAL and EXECUTIVE appear to conflict/);
+  assert.match(startup, /REPORTING and RESEARCH are not combined automatically/);
 
   const compact = readOutput(
     invoke({ hook_event_name: 'SessionStart', source: 'compact' }),
