@@ -1,14 +1,27 @@
 {
   "name": "clp",
-  "version": "0.1.0",
-  "description": "Composable Language Protocols. Injects the CLP global rules into every prompt so prose output follows the specification.",
+  "version": "0.1.1",
+  "description": "Composable Language Protocols. Loads the operational specification by session and keeps relevant rules near each prose prompt.",
   "author": {
     "name": "Steve Cain",
     "url": "https://github.com/stevenscain"
   },
   "homepage": "https://github.com/stevenscain/composable-language-protocols",
+  "license": "Apache-2.0",
   "keywords": ["writing", "prose", "style", "specification"],
   "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/clp-context.js\"",
+            "timeout": 5,
+            "statusMessage": "Loading CLP specification..."
+          }
+        ]
+      }
+    ],
     "UserPromptSubmit": [
       {
         "hooks": [

@@ -32,25 +32,21 @@ Version 0.1. Experimental.
 
 ## Why it exists
 
-People reject AI prose and usually describe the problem as one of origin. It
-reads more like a problem of quality.
+People often describe their objection to AI prose as a problem of origin. CLP
+begins with a hypothesis: some of those objections may instead be reactions to
+quality.
 
-The signature readers detect is not a watermark. It is a short list of
-ordinary prose defects that travel together often enough to feel like a
-personality: inflation, deferred payload, decision avoidance, unearned
-intensity, overclaim, stated emotion, contradiction. Every one of them is a
-failure human writers have produced for a century. They cluster in generated
-text because the objectives that shape it reward fluency, hedging, and
-completeness.
+The candidate signature is not a watermark. It is a cluster of ordinary prose
+defects that can travel together: inflation, deferred payload, decision
+avoidance, unearned intensity, overclaim, stated emotion, and contradiction.
+None is unique to generated text.
 
-That reframe is the whole motivation. If the problem is origin, the available
-responses are disclosure and concealment, and neither improves a sentence. If
-the problem is quality, you can write the defects down, name a rule against
-each one, and check output against the list. That is what the nine protocols
-are.
+If an objection concerns origin, the relevant questions are disclosure and
+provenance. If it concerns quality, the defects can be named and repaired. CLP
+addresses the second problem without claiming to resolve the first.
 
-Case study [003](003-the-signature-is-a-defect-list.md) argues this position
-and marks its limits.
+Case study [003](003-the-signature-is-a-defect-list.md) develops this
+hypothesis and marks its limits.
 
 ## Who decided
 
@@ -95,7 +91,7 @@ The human found the judgment errors. A draft opening that reduced a nine
 protocol specification to a complaint about punctuation. A draft that spent
 its length on tooling and left its own findings unintelligible, because it
 reported that two protocols failed to compose without ever establishing that
-protocols are things which compose. A thesis about why readers reject
+protocols are things which compose. A hypothesis about why some readers reject
 generated prose, which no amount of reading this repository would have
 produced.
 
@@ -119,7 +115,7 @@ be pasted into a model context as raw text, which is why it is not Markdown.
 
 ## Post text
 
-Ready to publish without edits. 2,282 characters, no em dashes, and a 48
+Ready to publish without edits. 2,286 characters, no em dashes, and a 48
 character opening line. Shorter than the other posts on purpose, because this
 one introduces rather than argues.
 
@@ -135,9 +131,9 @@ Each one governs a single concern: terminology, decision framing, attribution, e
 
 Not a style guide. A specification. It has a priority order where accuracy outranks style, a compatibility matrix saying which protocols may combine, sixteen evaluation cases, and a checker that exits 1 when a declaration stops being reciprocal.
 
-Why it exists: people who reject AI prose describe it as a problem of origin. It reads more like a problem of quality. What they detect is not a watermark. It is a short list of ordinary prose defects that travel together often enough to feel like a personality. Inflation. Deferred payload. Decision avoidance. Overclaim. Every one of them is a failure human writers have produced for a century.
+Why it exists: people often describe their objection to AI prose as a problem of origin. CLP starts with a hypothesis that some objections are reactions to quality. The candidate signature is a cluster of ordinary prose defects that can travel together. Inflation. Deferred payload. Decision avoidance. Overclaim. None is unique to generated text.
 
-If the problem is origin, your options are disclosure and concealment, and neither improves a sentence. If the problem is quality, you can write the defects down and check against the list.
+If an objection concerns origin, the relevant questions are disclosure and provenance. If it concerns quality, the defects can be named and repaired. CLP addresses the second problem without claiming to resolve the first.
 
 Every one of those decisions was made by a person. Accuracy outranks style because I decided it does. FICTION does not automatically combine with TECHNICAL because those rules would strip the voice FICTION exists to protect. Those are judgments about what writing is for, and they were not generated.
 

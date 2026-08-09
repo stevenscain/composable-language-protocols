@@ -1,0 +1,1 @@
+The primary database node died and it took down everything. The failover obviously failed because the network team changed the firewall rules that morning. Replica lag hit about 45 seconds according to the Grafana dashboard. Write the incident report.

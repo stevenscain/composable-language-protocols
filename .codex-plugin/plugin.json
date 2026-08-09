@@ -1,0 +1,34 @@
+{
+  "name": "clp",
+  "version": "0.1.1+codex.20260809002053",
+  "description": "Composable Language Protocols for consistent prose in Codex.",
+  "author": {
+    "name": "Steve Cain",
+    "url": "https://github.com/stevenscain"
+  },
+  "homepage": "https://github.com/stevenscain/composable-language-protocols",
+  "repository": "https://github.com/stevenscain/composable-language-protocols",
+  "license": "Apache-2.0",
+  "keywords": [
+    "writing",
+    "prose",
+    "style",
+    "specification"
+  ],
+  "interface": {
+    "displayName": "Composable Language Protocols",
+    "shortDescription": "Apply CLP rules to prose with scoped context",
+    "longDescription": "Loads a compact operational form of CLP at session start and after compaction, then keeps the global and explicitly selected rules near each prose prompt.",
+    "developerName": "Steve Cain",
+    "category": "Productivity",
+    "capabilities": [
+      "Interactive"
+    ],
+    "websiteURL": "https://github.com/stevenscain/composable-language-protocols",
+    "defaultPrompt": [
+      "CLP AUTO: Rewrite this text clearly.",
+      "CLP: TECHNICAL. Review these instructions.",
+      "Explain which CLP protocols apply here."
+    ]
+  }
+}

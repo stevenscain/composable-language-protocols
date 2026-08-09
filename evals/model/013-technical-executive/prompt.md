@@ -1,0 +1,1 @@
+Our API gateway drops requests when concurrent connections exceed 5,000. The fix requires replacing the connection pool library and re-running the load test suite. The replacement takes about two developer-weeks. We reached 4,200 concurrent connections during the last sale event. Write this up for the VP of Engineering.

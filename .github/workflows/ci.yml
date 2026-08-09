@@ -1,0 +1,78 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    name: Structural and hook checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+
+      - name: Check JavaScript syntax
+        run: |
+          node --check evals/check-compatibility.js
+          node --check evals/check-compatibility-tests.js
+          node --check evals/check-hook.js
+          node --check evals/check-model-evals.js
+          node --check evals/check-packaging.js
+          node --check evals/run-model-evals.js
+          node --check hooks/clp-context.js
+          node --check hooks/clp-context-codex.js
+
+      - name: Check CLP structure
+        run: node evals/check-compatibility.js
+
+      - name: Test structural checker
+        run: node evals/check-compatibility-tests.js
+
+      - name: Test hook behavior
+        run: node evals/check-hook.js
+
+      - name: Check plugin packaging
+        run: node evals/check-packaging.js
+
+      - name: Check model evaluation definitions
+        run: node evals/check-model-evals.js
+
+      - name: Test bash status line
+        shell: bash
+        run: |
+          bash -n statusline/clp-statusline.sh
+          status_dir=$(mktemp -d)
+          trap 'rm -rf "$status_dir"' EXIT
+          active=$(CLAUDE_CONFIG_DIR="$status_dir" bash statusline/clp-statusline.sh)
+          [[ "$active" == *"[CLP]"* ]]
+          touch "$status_dir/.clp-inactive"
+          inactive=$(CLAUDE_CONFIG_DIR="$status_dir" bash statusline/clp-statusline.sh)
+          [[ "$inactive" == *"[CLP:OFF]"* ]]
+
+      - name: Test PowerShell status line
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $statusDir = Join-Path $env:RUNNER_TEMP ("clp-statusline-" + [guid]::NewGuid().ToString('N'))
+          New-Item -ItemType Directory -Path $statusDir | Out-Null
+          try {
+            $env:CLAUDE_CONFIG_DIR = $statusDir
+            $active = (& pwsh -NoProfile -File ./statusline/clp-statusline.ps1 | Out-String)
+            if ($active -notmatch '\[CLP\]') { throw 'active badge was not emitted' }
+            New-Item -ItemType File -Path (Join-Path $statusDir '.clp-inactive') | Out-Null
+            $inactive = (& pwsh -NoProfile -File ./statusline/clp-statusline.ps1 | Out-String)
+            if ($inactive -notmatch '\[CLP:OFF\]') { throw 'inactive badge was not emitted' }
+          } finally {
+            Remove-Item -LiteralPath $statusDir -Recurse -Force
+          }

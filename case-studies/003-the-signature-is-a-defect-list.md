@@ -1,4 +1,4 @@
-# 003. The AI signature is a defect list
+# 003. What if the AI signature is a defect list?
 
 Date: 2026-08-08
 Type: Argument, not an episode record.
@@ -7,17 +7,16 @@ Evidence: the nine BEFORE and AFTER pairs in `CLP.txt`.
 
 ---
 
-Readers say they can tell when text was generated. They are usually right,
-and the reason is not the one they give.
+Readers often say they can tell when text was generated. What if part of what
+they recognize is a recurring cluster of ordinary prose defects?
 
-The complaint arrives as a claim about origin. This sounds like AI. Read it as
-a claim about quality instead and it becomes something you can test and fix.
-What readers detect is not a watermark. It is a small set of prose defects
-that travel together often enough to feel like a personality.
+That is the hypothesis of this essay. If it is right, at least some complaints
+about AI prose can be treated as quality problems: named, examined, and
+repaired.
 
-The distinction decides what work you do. If the problem is origin, the
-response is disclosure or concealment. If the problem is quality, the response
-is a defect list.
+The distinction changes the work. If the problem is origin, the response is
+disclosure or concealment. If the problem is quality, the response is a defect
+list.
 
 ## The signature decomposes
 
@@ -72,11 +71,13 @@ people tell each other what they both already know, for the reader's benefit.
 
 ## What the defects have in common
 
-None of them is a marker of machine authorship. Every one is a failure that
-human writers produce, and produced for a century before any of this. They
-cluster in generated text because the objectives that shape the text reward
-fluency, hedging, and completeness. They are not a signature of origin. They
-are a signature of unrevised writing.
+None of these defects is unique to machine authorship. Human writers produce
+all nine. The hypothesis concerns the cluster: generated prose may combine
+these defects often enough to create a recognizable register.
+
+One possible explanation is that generation objectives reward fluency,
+caution, and completeness. This essay does not test that explanation. The
+perceived signature may identify unrevised writing as much as machine origin.
 
 They also share a cost structure, which explains why the effect is tiring
 rather than merely wrong. Each defect makes the reader spend something and
@@ -90,36 +91,30 @@ failures. A reader who has been burned by those learns to distrust the whole
 register that carries them. Part of what gets called a taste problem is a
 trust problem that has been misfiled.
 
-## Noticing is the failure
+## Why the hypothesis matters
 
-Prose works when the reader stops seeing it. Ask someone about a well written
-memo and they will tell you what it decided, not how it read. The question
-"where did this come from" only surfaces when something has already gone
-wrong, in the same way that a reader who notices a font has usually been
-failed by the typesetting.
+One practical consequence follows if the hypothesis is right. Some readers
+may infer origin only after prose defects draw their attention to the wording.
+Removing those defects would improve the reading experience whether or not it
+changes judgments about origin.
 
-So the goal is not text that hides its origin. The goal is text with nothing
-in it that prompts the question. Those produce the same result and they are
-not the same intent, and the difference shows up the moment someone asks you
-directly. You can answer honestly and the prose still works.
+The goal is not to hide origin. The goal is to remove avoidable defects and
+disclose origin when disclosure matters. Better prose and honest provenance
+can coexist.
 
 ## Where this argument stops
 
-This is a hypothesis with a designed corpus behind it, not a measured result,
-and the corpus proves less than it might appear to.
+This essay proposes a hypothesis and shows that nine candidate defects can be
+isolated and repaired. It does not test whether readers associate those
+defects with generated text.
 
-The nine pairs were written to isolate nine defects. They demonstrate that the
-defects are separable and repairable one at a time. They do not measure how
-often a reader's objection is about quality rather than origin. Nobody has
-been surveyed here. Treating a specification's own examples as evidence about
-readers would be exactly the overclaim listed above.
+The examples were designed to isolate the defects. They do not measure how
+often readers object to generated prose, whether the defects occur more often
+in generated prose, or how much prior knowledge of origin affects judgment.
 
-There is a competing explanation that would account for much of the same
-observation. If you know in advance that a message was generated, you may read
-it more harshly whatever its quality, and the fatigue would then come from the
-knowledge rather than from the prose. A blind comparison would separate the
-two. Until someone runs it, the honest position is that both effects are
-plausible and their relative size is unknown.
+A blinded comparison of edited and unedited passages could help estimate the
+contribution of prose quality. It would not settle every question about
+detection, authorship, or provenance.
 
 Some objections to generated text are genuinely about origin and are not
 addressed by any of this. Whether a person consented to their work training a
@@ -127,38 +122,34 @@ model, whether effort was actually spent, and whether authorship was disclosed
 where it mattered are questions about provenance. Better prose does not answer
 them and should not be offered as an answer.
 
-Finally, removing these defects does not make text undetectable. Classifiers
-work on statistical properties that survive good editing. Detection and reader
-experience are different questions, and this argument is only about the second
-one.
+This argument concerns reader experience, not automated detection. Improving
+prose does not imply that a classifier would label it differently.
 
 ## What follows
 
-Treat the signature as a defect list and the work becomes ordinary. Name the
-failures, write the repair beside each one, and check output against the list
-before it ships. That is what the nine protocols are.
+If the hypothesis is useful, the work becomes concrete. Name the candidate
+defects, write a repair beside each one, and check the output before it ships.
+That is what the nine protocols support.
 
-The useful reframe is that there was never a new problem here. There was an
-old problem arriving at a volume that made it impossible to ignore.
+The defects themselves are familiar. The open question is whether they explain
+part of what readers call the AI signature.
 
 ## Post text
 
-Ready to publish without edits. 2,856 characters and no em dashes. The first
-line is 118 characters, so the hook lands before the feed truncates it.
+Ready to publish without edits. 2,661 characters and no em dashes. The opening
+line is 42 characters.
 
-One judgement call to be aware of. At 2,856 characters this sits near the
-3,000 limit, which leaves about two sentences of editing room and puts it at
-the long end for a feed post. The length is spent on two worked examples and
-on the paragraph that marks the argument's limits, and cutting either one
-weakens the piece. A shorter variant is possible by dropping the second
-example, at the cost of letting a reader dismiss the first as cherry-picked.
+One judgement call to be aware of. At 2,661 characters this remains a long feed
+post, but it leaves 339 characters below the 3,000-character limit. The length
+is spent on two worked examples and on the paragraph that marks the argument's
+limits. Cutting either one weakens the piece. A shorter variant is possible by
+dropping the second example, at the cost of letting a reader dismiss the first
+as cherry-picked.
 
 ```text
-People say they can tell when text was written by AI. They are usually right, and the reason is not the one they give.
+What if the AI signature is a defect list?
 
-The complaint arrives as a claim about origin. Read it as a claim about quality and it becomes something you can test and fix.
-
-What readers detect is not a watermark. It is a short list of ordinary prose defects that travel together often enough to feel like a personality.
+People often describe generated prose as recognizable. My hypothesis is that part of what they recognize is a cluster of ordinary prose defects.
 
 I wrote a spec with nine writing protocols, each carrying a before and after pair. Read the nine "before" examples together and the signature stops being a mood. It becomes an inventory.
 
@@ -170,13 +161,13 @@ That has the shape of analysis and contains none. It names no consideration and 
 
 Deferred payload: "Once you have successfully completed the installation process, you will then need to proceed to the configuration section in order to specify the appropriate settings." Twenty five words. The repair is nine: "After installation, open Configuration and select the required settings."
 
-Not one of these is a marker of machine authorship. Every one is a failure human writers have produced for a century. They cluster in generated text because the objectives that shape it reward fluency, hedging and completeness. That is a signature of unrevised writing, not of origin.
+None of these defects is unique to machine authorship. Human writers produce all nine. My hypothesis is that generated prose may combine them often enough to create a recognizable register. One possible explanation is that generation objectives reward fluency, caution, and completeness. I have not tested that explanation.
 
 They share a cost structure, which is why the effect is tiring rather than merely wrong. Each defect makes the reader spend something and returns nothing. Inflation costs time. Deferred payload costs patience. Overclaim costs verification. Fatigue is the running total.
 
 Three of the nine are not style problems at all. Unearned intensity, overclaim and contradiction are accuracy failures. A reader burned by those learns to distrust the whole register that carries them. Part of what gets called a taste problem is a trust problem that has been misfiled.
 
-Where this stops: nine designed examples show the defects are separable. They measure nothing about real readers. And there is a competing explanation I cannot rule out, that knowing a text was generated makes you read it harshly whatever its quality. A blind comparison would settle it. Nobody has run one.
+Where this stops: nine designed examples show that the candidate defects can be isolated and repaired. They do not measure reader reactions or show that the defects occur more often in generated prose. A blinded comparison could test whether editing changes perceived authorship.
 
 Prose works when the reader stops seeing it. The goal is not text that hides where it came from. It is text with nothing in it that prompts the question.
 
@@ -188,7 +179,7 @@ github.com/stevenscain/composable-language-protocols
 ```
 
 Notes on the cut. The blog post walks all nine defects. The post keeps two,
-because two worked examples prove the claim and nine turns a post into a
+because two worked examples illustrate the claim and nine turns a post into a
 reference. Decision avoidance leads because every reader has received that
 email. The classifier point and the provenance carve-out were dropped for
 length, so if a comment raises either one, the blog post has the full answer.

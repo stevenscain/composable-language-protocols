@@ -6,10 +6,12 @@
 //   node evals/check-compatibility.js
 //
 // Checks:
-//   1. Every COMPATIBLE WITH declaration is reciprocal.
-//   2. Every protocol named in the section 3 selection map exists.
-//   3. Every protocol set in section 3 is pairwise compatible.
-//   4. No protocol set in section 3 contains a pair that a protocol marks
+//   1. Every declaration references a protocol section.
+//   2. Every COMPATIBLE WITH declaration is reciprocal.
+//   3. Every DO NOT AUTOMATICALLY COMBINE WITH declaration is reciprocal.
+//   4. Every protocol named in the section 3 selection map exists.
+//   5. Every protocol set in section 3 is pairwise compatible.
+//   6. No protocol set in section 3 contains a pair that a protocol marks
 //      DO NOT AUTOMATICALLY COMBINE WITH.
 //
 // Exits 1 if any check fails. Non-composable pairs that carry no marker are
@@ -34,8 +36,9 @@ let current = null;
 for (let i = 0; i < lines.length; i++) {
   const heading = lines[i].match(/^(\d+)\.\s+([A-Z]+)\s*$/);
   if (heading) {
-    current = heading[2];
-    sectionOf[current] = Number(heading[1]);
+    const sectionNumber = Number(heading[1]);
+    current = sectionNumber >= 4 && sectionNumber <= 12 ? heading[2] : null;
+    if (current) sectionOf[current] = sectionNumber;
     continue;
   }
   if (!current) continue;
@@ -72,12 +75,15 @@ for (const line of lines) {
 
 const failures = [];
 const declared = Object.keys(compatible);
+const protocols = Object.keys(sectionOf);
 
-// 1. Reciprocity.
+// 1. References and 2. compatibility reciprocity.
 for (const a of declared) {
   for (const b of compatible[a]) {
     if (b === UNIVERSAL) continue;
-    if (!compatible[b]) {
+    if (!sectionOf[b]) {
+      failures.push(`${a} lists ${b} as compatible, but ${b} has no protocol section`);
+    } else if (!compatible[b]) {
       failures.push(`${a} lists ${b} as compatible, but ${b} has no COMPATIBLE WITH block`);
     } else if (!compatible[b].includes(a)) {
       failures.push(`${a} lists ${b} as compatible, but ${b} does not list ${a}`);
@@ -85,7 +91,18 @@ for (const a of declared) {
   }
 }
 
-// 2, 3 and 4. The section 3 selection map.
+// 1. References and 3. automatic-exclusion reciprocity.
+for (const a of Object.keys(noAutoCombine)) {
+  for (const b of noAutoCombine[a]) {
+    if (!sectionOf[b]) {
+      failures.push(`${a} lists ${b} under DO NOT AUTOMATICALLY COMBINE WITH, but ${b} has no protocol section`);
+    } else if (!(noAutoCombine[b] || []).includes(a)) {
+      failures.push(`${a} lists ${b} under DO NOT AUTOMATICALLY COMBINE WITH, but ${b} does not list ${a}`);
+    }
+  }
+}
+
+// 4, 5 and 6. The section 3 selection map.
 const composable = (a, b) =>
   a === UNIVERSAL || b === UNIVERSAL ||
   (compatible[a] || []).includes(b) || (compatible[b] || []).includes(a);
@@ -111,15 +128,16 @@ for (const members of sets) {
   }
 }
 
-console.log(`Checked ${declared.length + 1} protocols and ${sets.length} protocol sets in ${path.basename(specPath)}.`);
+console.log(`Checked ${protocols.length} protocols and ${sets.length} protocol sets in ${path.basename(specPath)}.`);
 console.log('');
 
 // Report non-composable pairs so a deliberate exclusion stays visible and an
 // accidental one is easy to spot.
+const nonUniversal = protocols.filter(name => name !== UNIVERSAL);
 const unmarked = [];
-for (let i = 0; i < declared.length; i++) {
-  for (let j = i + 1; j < declared.length; j++) {
-    const a = declared[i], b = declared[j];
+for (let i = 0; i < nonUniversal.length; i++) {
+  for (let j = i + 1; j < nonUniversal.length; j++) {
+    const a = nonUniversal[i], b = nonUniversal[j];
     if (composable(a, b)) continue;
     if (markedNoAuto(a, b)) continue;
     unmarked.push(`${a} + ${b}`);
@@ -137,4 +155,4 @@ if (failures.length > 0) {
   process.exit(1);
 }
 
-console.log('PASS. Compatibility declarations are reciprocal and every selection map set is legal.');
+console.log('PASS. Declarations are valid and reciprocal, and every selection map set is legal.');

@@ -7,14 +7,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## What this repository is
 
 A prose specification. The deliverable is the text in `CLP.txt`, and most
-changes are edits to plain-text specification files. There is no build, no
-test runner, and no lint step.
+changes are edits to plain-text specification files. There is no build,
+package manager, dependency installation, or compilation step.
 
 A few scripts are the exception. `hooks/clp-context.js` packages the
 specification as a Claude Code plugin, `evals/check-compatibility.js` checks
-the structure of `CLP.txt`, and the two scripts in `statusline` print a badge.
-None of them has dependencies, so there is still nothing to install or
-compile.
+the structure of `CLP.txt`, `evals/check-hook.js` checks hook behavior, and the
+two scripts in `statusline` print a badge. None of them has dependencies, so
+there is still nothing to install or compile.
 
 ## Architecture
 
@@ -31,13 +31,17 @@ Three files that depend on each other in one direction:
 - `evals/cases.txt` tests `CLP.txt`. Each case names an expected protocol set
   or a check list, and the checks map back to specific rules in the
   specification.
-- `hooks/clp-context.js` is a `UserPromptSubmit` hook that injects the global
-  rules into every turn. It parses section 2 out of `CLP.txt` at run time
-  rather than storing its own copy, so the rules cannot drift. The parser
-  looks for the exact heading `2. GLOBAL RULES` and collects the lines that
-  start with `*`. If you change that heading or the bullet format, update the
-  parser. `.claude-plugin/plugin.json` and `.claude-plugin/marketplace.json`
-  register the hook.
+- `hooks/clp-context.js` handles `SessionStart` and `UserPromptSubmit`. At
+  session start and after context compaction, it injects an operational form
+  of the specification with worked examples and repeated composition examples
+  removed. Before each prompt, it injects section 2, a selection reminder, and
+  any protocol sections the user names. Automatic selection uses the section 3
+  map loaded at session start rather than a separate keyword classifier. The
+  hook parses `CLP.txt` at run time, so the injected text cannot drift. The
+  parser depends on the numbered section headings, section 2 `*` bullets,
+  protocol `BEFORE` markers, and section 13 example format. If those formats
+  change, update the parser and `evals/check-hook.js`. The Claude and Codex
+  plugin configurations register both lifecycle events.
 - `statusline/clp-statusline.sh` and `statusline/clp-statusline.ps1` print a
   badge showing whether CLP is active. They test whether the hook's
   `.clp-inactive` flag file exists and never read its contents, so the flag
@@ -48,7 +52,8 @@ Three files that depend on each other in one direction:
 - `evals/check-compatibility.js` checks the structure of `CLP.txt`. It parses
   the `COMPATIBLE WITH` and `DO NOT AUTOMATICALLY COMBINE WITH` blocks and the
   section 3 selection map, so it depends on the exact section header and block
-  formats described above.
+  formats described above. `evals/check-compatibility-tests.js` mutates a
+  temporary copy of the specification to prove each structural failure path.
 
 Protocols are designed to compose, so a rule belongs in exactly one protocol.
 `CORE` holds general efficiency, `PLAIN` holds comprehension and order,
@@ -97,10 +102,26 @@ The structure of `CLP.txt` is checked automatically:
 
 ```
 node evals/check-compatibility.js
+node evals/check-compatibility-tests.js
 ```
 
-It verifies that every `COMPATIBLE WITH` declaration is reciprocal, that every
+The hook lifecycle and toggle behavior are checked automatically:
+
+```
+node evals/check-hook.js
+```
+
+This check covers startup and post-compaction injection, the operational
+context size limit, automatic and named protocol prompts, standalone toggle
+commands, disabled-state persistence, false matches, and silent failure.
+
+The checker verifies that compatibility and automatic-exclusion declarations
+reference known protocols and are reciprocal. It also verifies that every
 protocol named in the selection map exists, that every set in the map is
-pairwise compatible, and that no set contains a pair marked
-`DO NOT AUTOMATICALLY COMBINE WITH`. It exits 1 on failure. Non-composable
-pairs that carry no marker are listed for information and do not fail the run.
+pairwise compatible, and that no set contains an excluded pair. It exits 1 on
+failure. Non-composable pairs that carry no marker are listed for information
+and do not fail the run. The mutation suite proves seven invalid variants fail
+with the expected diagnostic.
+
+`.github/workflows/ci.yml` runs these structural checks, the hook suite, and
+JavaScript syntax checks on every push and pull request with Node.js 22.

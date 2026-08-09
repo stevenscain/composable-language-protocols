@@ -1,0 +1,1 @@
+We benchmarked our vector index against the current inverted index on 12,000 production queries. Median latency dropped from 180 ms to 65 ms. Recall at 10 fell from 0.94 to 0.89. The benchmark ran on one hardware configuration and used queries from a single month. Leadership needs to decide whether to migrate. Write it up.

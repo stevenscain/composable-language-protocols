@@ -1,0 +1,33 @@
+{
+  "description": "Load the CLP operational specification by session and keep relevant rules near each prose prompt.",
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$PLUGIN_ROOT/hooks/clp-context-codex.js\"",
+            "commandWindows": "node \"$env:PLUGIN_ROOT/hooks/clp-context-codex.js\"",
+            "timeout": 5,
+            "statusMessage": "Loading CLP specification...",
+            "additionalContextLimit": 0
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$PLUGIN_ROOT/hooks/clp-context-codex.js\"",
+            "commandWindows": "node \"$env:PLUGIN_ROOT/hooks/clp-context-codex.js\"",
+            "timeout": 5,
+            "statusMessage": "Loading CLP rules...",
+            "additionalContextLimit": 0
+          }
+        ]
+      }
+    ]
+  }
+}

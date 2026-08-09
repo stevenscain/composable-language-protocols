@@ -19,9 +19,11 @@ The instruction was a pointer to the rules. It was not the rules.
 
 ## What changed
 
-A `UserPromptSubmit` hook now injects the literal text of section 2 beside
-every message, and reads it out of `CLP.txt` at run time so the injected copy
-cannot drift from the source.
+The first fix was a `UserPromptSubmit` hook that injected the literal text of
+section 2 beside every message. The current hook also loads a compact
+operational form of the specification at session start and after context
+compaction. It still derives every payload from `CLP.txt` at run time, so the
+injected text cannot drift from the source.
 
 Applying the specification properly then exposed three gaps in the
 specification itself:

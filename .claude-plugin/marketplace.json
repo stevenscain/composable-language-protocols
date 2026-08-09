@@ -1,5 +1,6 @@
 {
   "name": "composable-language-protocols",
+  "description": "Composable Language Protocols for scoped, consistent prose guidance.",
   "owner": {
     "name": "Steve Cain",
     "url": "https://github.com/stevenscain"
@@ -8,7 +9,7 @@
     {
       "name": "clp",
       "source": "./",
-      "description": "Injects the CLP global rules into every prompt so prose output follows the specification."
+      "description": "Loads the CLP operational specification by session and keeps relevant rules near each prose prompt."
     }
   ]
 }
